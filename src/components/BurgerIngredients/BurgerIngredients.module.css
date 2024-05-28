@@ -1,0 +1,23 @@
+.column{
+    /*border: 4px double green;*/
+    position: relative;
+    /*position: absolute;*/
+    width: 600px;
+    height: 600px;
+}
+
+.column__list{
+    display: flex;
+}
+.column__scrollzone {
+    overflow: auto;
+    height: 100%;
+}
+.scrollzone::-webkit-scrollbar {
+    background-color: #2F2F37;
+    width: 10px;
+    height: 8px;
+}
+.scrollzone::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
