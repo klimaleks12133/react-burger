@@ -1,25 +1,14 @@
 .column{
-<<<<<<< Updated upstream
-    /*border: 4px double green;*/
-    position: relative;
-    /*position: absolute;*/
-    width: 600px;
-    height: 600px;
-=======
     position: relative;
     width: 600px;
     height: 600px;
     text-align: left;
->>>>>>> Stashed changes
 }
 
 .column__list{
     display: flex;
-<<<<<<< Updated upstream
-=======
     margin-top: 20px;
     margin-bottom: 40px;
->>>>>>> Stashed changes
 }
 .column__scrollzone {
     overflow: auto;
