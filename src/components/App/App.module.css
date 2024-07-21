@@ -1,0 +1,11 @@
+.wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    justify-content:center;
+    width: 100%;
+    gap: 40px;
+}
