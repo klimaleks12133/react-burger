@@ -35,4 +35,8 @@ function BurgerIngredients() {
 }
 
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 export default BurgerIngredients;

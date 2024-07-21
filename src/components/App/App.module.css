@@ -7,4 +7,8 @@
     display: flex;
     justify-content:center;
     width: 100%;
+<<<<<<< Updated upstream
+=======
+    gap: 40px;
+>>>>>>> Stashed changes
 }
