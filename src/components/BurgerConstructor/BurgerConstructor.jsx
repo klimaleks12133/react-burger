@@ -1,54 +1,70 @@
-import React from 'react';
+import { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './BurgerConstructor.module.css';
-import data from '../../utils/data'
-import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import { dataPropTypes } from '../../utils/dataProps';
+import { BUN } from '../../utils/dataName';
+import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 
-class BurgerConstructor extends React.Component {
-    render() {
-    const bunUp = data.find(item => item._id === '60666c42cc7b410027a1a9b1');
-    const bunDown = data.find(item => item._id === '60666c42cc7b410027a1a9b2');
+function BurgerConstructor({ data, sum, number }) {
+    const list = useMemo(() => data.filter(item => item.type !== BUN), [data]);
+    const bun = useMemo(() => data.find(item => item.type === BUN), [data]);
+    const [show, setShow] = useState(false);
+
+    function showOrder() {
+        setShow(true);
+    }
+
+    function hideOrder() {
+        setShow(false);
+    }
+
     return (
-        <div className={styles.column}>
-            <div className={styles.column__header}/>
-            <div className={styles.column__list}>
-                {(bunUp)?
-                    <ConstructorElement
-                        key={bunUp._id}
-                        type="top"
-                        isLocked={true}
-                        text={bunUp.name}
-                        price={bunUp.price}
-                        thumbnail={bunUp.image}
-                    /> : null}
-                {data.map((itm) => {
-                    return (itm.type === 'main' || itm.type === 'sauce') ?
-                        <ConstructorElement
-                            key={itm._id}
-                            text={itm.name}
-                            price={itm.price}
-                            thumbnail={itm.image}
-                        /> : null}
-                    )
-                }
-                {(bunDown)?
-                    <ConstructorElement
-                        key={bunDown._id}
-                        type="bottom"
-                        isLocked={true}
-                        text={bunDown.name}
-                        price={bunDown.price}
-                        thumbnail={bunDown.image}
-                    /> : null}
+        <section className={styles.section}>
+            <div className={styles.burger}>
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text={bun.name}
+                    price={bun.price}
+                    thumbnail={bun.image}
+                    extraClass={styles.ingredient}
+                />
+                <ul className={styles.scroll}>
+                    {list.map((item, index) => (
+                        <li className={styles['list-item']} key={index}>
+                            <span className={styles.draggable}><DragIcon type="primary" /></span>
+                            <ConstructorElement
+                                text={item.name}
+                                price={item.price}
+                                thumbnail={item.image}
+                                extraClass={styles.ingredient}
+                            />
+                        </li>
+                    ))}
+                </ul>
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text={bun.name}
+                    price={bun.price}
+                    thumbnail={bun.image}
+                    extraClass={styles.ingredient}
+                />
             </div>
-
-            <div className={styles.column__price}>
-                <p className="text text_type_digits-medium">610</p>
-                <CurrencyIcon type="primary"/>
-                <Button type="primary" size="medium">Оформить заказ</Button>
+            <div className={styles.total} >
+                <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
+                <div className={styles['total-icon']}><CurrencyIcon type="primary" /></div>
+                <Button htmlType="button" type="primary" onClick={showOrder}>Оформить заказ</Button>
+                {show && <OrderDetails number={number} onClose={hideOrder} />}
             </div>
-        </div>
+        </section>
     );
 }
+
+BurgerConstructor.propTypes = {
+    data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired
 }
+
 export default BurgerConstructor;

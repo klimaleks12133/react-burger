@@ -1,36 +1,12 @@
-.column{
-    position: relative;
-    width: 600px;
-    height: 500px;
+.section {
+    flex: 0 0 600px;
 }
 
-.column__header {
-    width: 60px;
-    height: 100px;
-}
-.scrollzone {
-    overflow: auto;
-    height: 100%;
-}
-.scrollzone::-webkit-scrollbar {
-    background-color: #2F2F37;
-    width: 10px;
-    height: 8px;
-}
-.scrollzone::-webkit-scrollbar-thumb {
-    background: #8585AD;
-}
-.column__list {
-    composes: scrollzone;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.column__price {
-    padding-top: 40px;
-    display:flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    justify-content: flex-end;
+.scroll {
+    overflow-y: auto;
+    max-height: 464px;
+    scrollbar-width: thin;
+    scrollbar-color: #8585AD #2F2F37;
+    padding: 0;
+    list-style: none;
 }
