@@ -1,0 +1,26 @@
+.wrapper {
+    composes: pl-25 pr-25 pb-30 pt-4 from global;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.number {
+    composes: text_type_digits-large mb-8 from global;
+    margin-top: 0;
+}
+
+.subtitle {
+    composes: text_type_main-medium mb-15 from global;
+    margin-top: 0;
+}
+
+.text {
+    composes: text_type_main-default mt-15 mb-2 from global;
+}
+
+.subtext {
+    composes: text text_type_main-default text_color_inactive from global;
+}
