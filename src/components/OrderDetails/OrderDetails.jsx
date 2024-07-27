@@ -3,7 +3,7 @@ import styles from './OrderDetails.module.css';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
 
-function OrderDetails({ number, onClose }) {
+function OrderDetails({ onClose }) {
     return (
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
