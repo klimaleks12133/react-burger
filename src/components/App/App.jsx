@@ -14,8 +14,8 @@ function App() {
     useEffect(() => {
         fetch(`${API_URL}`)
             .then(res => {
-                if (res.status !== 200) {
-                    throw Error(`Неверный html-статус ответа: ${res.status}: ${res.statusText}`);
+                if(res.ok) {
+                    throw Error(`Неверный http-статус ответа: ${res.status}: ${res.statusText}`);
                 }
                 return res.json();
             })
