@@ -97,7 +97,7 @@ function BurgerConstructor() {
                 </div>
                 <ul className={styles.scroll} ref={dropTargetIngredient}>
                     {ingredients && ingredients.length > 0 ? ingredients.map((item, index) => (
-                        <BurgerConstructorIngredient key={uuid()} item={item} index={index} onDelete={deleteIngredient} />
+                        <BurgerConstructorIngredient item={item} index={index} onDelete={deleteIngredient} />
                     )) :
                         (<div className={styles.empty__element} >
                             <div className={styles.empty__element_text}>Перетащите ингридиенты</div>
