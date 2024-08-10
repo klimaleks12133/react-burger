@@ -11,3 +11,18 @@
     padding: 0;
     list-style: none;
 }
+
+.empty-element {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: var(--background);
+}
+
+.empty-element-text {
+    flex: 1;
+}
+
+.ingredient {
+    background: var(--background);
+}

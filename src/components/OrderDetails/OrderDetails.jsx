@@ -1,11 +1,10 @@
 import img from '../../images/done.svg';
 import styles from './OrderDetails.module.css';
-import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
 
-function OrderDetails({ onClose }) {
+function OrderDetails() {
     return (
-        <Modal onClose={onClose}>
+        <>
             <div className={styles.wrapper}>
                 <h2 className={styles.number}>034536</h2>
                 <p className={styles.subtitle}>идентификатор заказа</p>
@@ -13,12 +12,12 @@ function OrderDetails({ onClose }) {
                 <p className={styles.text}>Ваш заказ начали готовить</p>
                 <p className={styles.subtext}>Дождитесь готовности на орбитальной станции</p>
             </div>
-        </Modal>
+        </>
     );
 }
 
 OrderDetails.propTypes = {
-    number: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
     onClose: PropTypes.func.isRequired
 }
 
