@@ -77,7 +77,7 @@ function BurgerIngredients() {
                 {[BUN, SAUCE, MAIN].map((type, typeIndex) => (
                     <div key={typeIndex}>
                         <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
-                        <ul className={styles['group-content']}>
+                        <ul className={styles.group__ontent}>
                             {groups[type].map((item) => (
                                 <IngredientsItem key={item._id} item={item} count={countData[item._id]} />
                             ))}

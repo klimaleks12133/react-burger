@@ -26,7 +26,7 @@ function BurgerConstructorIngredient({ item, index, onDelete }) {
     drag(drop(ref));
 
     return (
-        <li className={styles.list-item} key={index} ref={ref}>
+        <li className={styles.list__item} key={index} ref={ref}>
             <DragIcon type="primary" />
             <ConstructorElement
                 text={item.name}

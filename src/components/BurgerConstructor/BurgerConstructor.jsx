@@ -88,19 +88,19 @@ function BurgerConstructor() {
                             text={`${bun.name} (верх)`}
                             price={bun.price}
                             thumbnail={bun.image}
-                            extraClass={`${styles.ingredient} ml-8`}
+                            extraClass={styles.ingredient}
                         />) :
-                        (<div className={`${styles["empty-element"]} constructor-element constructor-element_pos_top ml-8`}>
-                            <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите булку</div>
+                        (<div className={styles.empty__element} >
+                            <div className={styles.empty__element_text}>Перетащите булку</div>
                         </div>)
                     }
                 </div>
-                <ul className={`${styles.scroll} mt-4 mb-4`} ref={dropTargetIngredient}>
+                <ul className={styles.scroll} ref={dropTargetIngredient}>
                     {ingredients && ingredients.length > 0 ? ingredients.map((item, index) => (
                         <BurgerConstructorIngredient key={uuid()} item={item} index={index} onDelete={deleteIngredient} />
                     )) :
-                        (<div className={`${styles["empty-element"]} constructor-element ml-8`}>
-                            <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите ингридиенты</div>
+                        (<div className={styles.empty__element} >
+                            <div className={styles.empty__element_text}>Перетащите ингридиенты</div>
                         </div>)}
                 </ul>
                 <div ref={dropTargetBunDown}>
@@ -111,17 +111,17 @@ function BurgerConstructor() {
                             text={`${bun.name} (низ)`}
                             price={bun.price}
                             thumbnail={bun.image}
-                            extraClass={`${styles.ingredient} ml-8`}
+                            extraClass={styles.ingredient}
                         />) :
-                        (<div className={`${styles["empty-element"]} constructor-element constructor-element_pos_bottom ml-8`}>
-                            <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите булку</div>
+                        (<div className={styles.empty__element}>
+                            <div className={styles.empty__element_text}>Перетащите булку</div>
                         </div>)
                     }
                 </div>
             </div>
             <div className={styles.total} >
                 <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
-                <div className={styles['total-icon']}><CurrencyIcon type="primary" /></div>
+                <div className={styles.total__icon}><CurrencyIcon type="primary" /></div>
                 <Button htmlType="button" type="primary" disabled={disabled} onClick={showOrder}>Оформить заказ</Button>
                 {orderNumber && (
                     <Modal onClose={hideOrder}>
