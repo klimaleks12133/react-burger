@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/Order';
 import { useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
-import { v4 as uuid } from 'uuid';
 import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/BurgerConstructor';
 import styles from './BurgerConstructor.module.css';
 import { dataPropTypes } from '../../utils/dataProps';
@@ -97,7 +96,7 @@ function BurgerConstructor() {
                 </div>
                 <ul className={styles.scroll} ref={dropTargetIngredient}>
                     {ingredients && ingredients.length > 0 ? ingredients.map((item, index) => (
-                        <BurgerConstructorIngredient item={item} index={index} onDelete={deleteIngredient} />
+                        <BurgerConstructorIngredient key={item.id} item={item} index={index} onDelete={deleteIngredient} />
                     )) :
                         (<div className={styles.empty__element} >
                             <div className={styles.empty__element_text}>Перетащите ингридиенты</div>
