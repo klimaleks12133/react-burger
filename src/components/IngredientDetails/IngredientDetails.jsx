@@ -1,11 +1,10 @@
 import styles from './IngredientDetails.module.css'
-import Modal from '../Modal/Modal';
 import { dataPropTypes } from '../../utils/dataProps';
 import PropTypes from 'prop-types';
 
-function IngredientDetails({ item, onClose, ingredient }) {
+function IngredientDetails({ item}) {
     return (
-        <Modal caption="Детали ингридиента" onClose={onClose}>
+        <>
             <div className={styles.wrapper}>
                 <img src={item.image} className={styles.img} alt={item.name} />
                 <h2 className={styles.title}>{item.name}</h2>
@@ -28,7 +27,7 @@ function IngredientDetails({ item, onClose, ingredient }) {
                     </li>
                 </ul>
             </div>
-        </Modal>
+        </>
     );
 }
 

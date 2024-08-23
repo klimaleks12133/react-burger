@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { SET_TAB } from '../../services/actions/TabInfo';
 import styles from './Ingredients.module.css';
-import { BUN } from '../../utils/dataName';
+import { BUN, SAUCE, MAIN } from '../../utils/dataName';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredientsTabs() {
-    const [current, setCurrent] = useState(BUN);
+function BurgerIngredientsTabs(tabChange) {
+  const tab = useSelector(state => state.tabInfo.tab);
+  const dispatch = useDispatch();
+
+  function change(type) {
+      dispatch({ type: SET_TAB, tab: type });
+      tabChange(type);
+  }
 
     return (
         <div className={styles.tabs}>
-        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
+        <Tab value="Булки" active={tab === BUN} onClick={change}>
           Булки
         </Tab>
-        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+        <Tab value="Соусы" active={tab === SAUCE} onClick={change}>
           Соусы
         </Tab>
-        <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+        <Tab value="Начинки" active={tab === MAIN} onClick={change}>
           Начинки
         </Tab>
         </div>
