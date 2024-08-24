@@ -1,4 +1,4 @@
-import { BUN } from '../../utils/dataName';
+import { BUN } from '../../utils/DataName';
 import { SET_TAB } from '../actions/TabInfo';
 
 const initialState = {

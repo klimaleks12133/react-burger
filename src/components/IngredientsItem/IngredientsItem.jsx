@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import propTypes from 'prop-types';
-import { dataPropTypes } from '../../utils/dataProps';
+import { dataPropTypes } from '../../utils/DataProps';
 import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function IngredientsItem({ item, count}) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    function showDialogItem() {
+    const showDialogItem = useCallback(() => {
+        navigate(`/ingredients/${item._id}`, { replace: true, state: { location: location, item: item } });
         dispatch({type: SET_DISPLAYED_INGREDIENT, item: item});
-    }
+    }, [dispatch, navigate, location, item]);
 
     const [, dragRef] = useDrag({
         type: item.type,

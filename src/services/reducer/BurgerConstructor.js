@@ -11,7 +11,6 @@ const initialState = {
     ingredients: [],
     sum: 0
 }
-
 export function burgerConstructorReducer(state = initialState, action) {
     switch (action.type) {
         case SET_BUN:
@@ -26,7 +25,6 @@ export function burgerConstructorReducer(state = initialState, action) {
             return newState;
         case SET_SUM:
             return { ...state, sum: action.sum };
-
         default:
             return state;
     }

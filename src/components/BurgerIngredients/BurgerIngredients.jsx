@@ -1,13 +1,14 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
 import { SET_TAB } from '../../services/actions/TabInfo';
 import styles from './BurgerIngredients.module.css';
-import { BUN, SAUCE, MAIN, names } from '../../utils/dataName';
+import { BUN, SAUCE, MAIN, names } from '../../utils/DataName';
 import Ingredients from '../Ingredients/Ingredients';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { useNavigate } from 'react-router';
 
 function BurgerIngredients() {
     const displayedIngredient = useSelector(state => state.ingredientWindow.displayedIngredient);
@@ -30,6 +31,7 @@ function BurgerIngredients() {
     }, [bun, ingredients]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const groups = useMemo(() => {
         let res = {};
         res[BUN] = data.filter(i => i.type === BUN);
@@ -63,10 +65,11 @@ function BurgerIngredients() {
         }
     }
 
-    function hideDialog(e) {
+    const hideDialog = useCallback((e) => {
+        navigate('/', { replace: true });
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
         e.stopPropagation();
-    }
+    }, [dispatch, navigate]);
 
     return (
         <section className={styles.section}>

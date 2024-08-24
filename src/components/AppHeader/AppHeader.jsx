@@ -1,39 +1,28 @@
-import React from 'react';
-
-import {
-    BurgerIcon,
-    ListIcon,
-    ProfileIcon,
-    Logo
-} from '@ya.praktikum/react-developer-burger-ui-components';
-
 import styles from './AppHeader.module.css';
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import IconLink from '../Icon/Icon';
 
-class AppHeader extends React.Component {
-    render() {
-        return (
-            <header className={styles.header}>
-                <menu className={styles.header__menu}>
-                    <nav className={styles.header__nav}>
-                        <a href="#" className={styles.header__link}>
-                            <BurgerIcon type="primary" />
-                            <span>Конструктор</span>
-                        </a>
-                        <a href="#" className={styles.header__link}>
-                            <ListIcon type="secondary" />
-                            <span>Лента заказов</span>
-                        </a>
-                    </nav>
-                    <span className={styles.header__logo}><Logo /></span>
-                    <button className={styles.header__button} type="button">
-                        <ProfileIcon type="secondary" />
-                        <span>Личный кабинет</span>
-                    </button>
-                </menu>
-            </header>
-        )
-    }
+function AppHeader() {
+    return (
+        <header className={styles.header}>
+            <div className={styles.container}>
+                <nav className={styles.left}>
+                    <ul className={styles.list}>
+                        <li><IconLink href="/" icon={BurgerIcon}>Конструктор</IconLink></li>
+                        <li><IconLink href="/asd" icon={ListIcon}>Лента заказов</IconLink></li>
+                    </ul>
+                </nav>
+
+                <div className={styles.center}>
+                    <Logo />
+                </div>
+
+                <div className={styles.right}>
+                    <IconLink href="/profile" icon={ProfileIcon}>Личный кабинет</IconLink>
+                </div>
+            </div>
+        </header>
+    );
 }
-
 
 export default AppHeader;

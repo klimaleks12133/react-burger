@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_TAB } from '../../services/actions/TabInfo';
 import styles from './Ingredients.module.css';
-import { BUN, SAUCE, MAIN } from '../../utils/dataName';
+import { BUN, SAUCE, MAIN } from '../../utils/DataName';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredientsTabs(tabChange) {

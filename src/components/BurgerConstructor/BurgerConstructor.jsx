@@ -1,16 +1,20 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/Order';
+import { authGetUserAction } from '../../services/actions/Auth';
+import { getAuth, getIngredients, getOrder } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
-import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/BurgerConstructor';
+import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/BurgerConstructor';
 import styles from './BurgerConstructor.module.css';
-import { dataPropTypes } from '../../utils/dataProps';
-import { BUN, SAUCE, MAIN } from '../../utils/dataName';
+import { dataPropTypes } from '../../utils/DataProps';
+import { BUN, SAUCE, MAIN } from '../../utils/DataName';
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import BurgerConstructorIngredient from '../BurgerConstructorIngredient/BurgerConstructorIngredient';
 import Modal from '../Modal/Modal';
+import Loader from '../Loader/Loader';
 
 function BurgerConstructor() {
     const { bun, ingredients, sum } = useSelector(state => state.burgerConstructor);
@@ -29,14 +33,30 @@ function BurgerConstructor() {
     }, [bun, ingredients, orderNumber, orderLoading]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userLoggedIn, requestStart } = useSelector(getAuth);
 
-    function showOrder() {
-        const orderIngredients = [...ingredients];
-        if (bun) {
-            orderIngredients.push(bun, bun);
+    useEffect(() => {
+        if (!userLoggedIn) {
+            dispatch(authGetUserAction());
         }
-        dispatch(createOrderAction(orderIngredients));
-    }
+    }, [userLoggedIn, dispatch]);
+
+    const showOrder = useCallback(() => {
+        if (requestStart) {
+            return;
+        }
+
+        if (!userLoggedIn) {
+            navigate('/login', { replace: true });
+        } else {
+            const orderIngredients = [...ingredients];
+            if (bun) {
+                orderIngredients.push(bun, bun);
+            }
+            dispatch(createOrderAction(orderIngredients));
+        }
+    }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
 
     function hideOrder() {
         dispatch({ type: CLEAR_ORDER });
@@ -68,15 +88,15 @@ function BurgerConstructor() {
     const [, dropTargetIngredient] = useDrop({
         accept: [SAUCE, MAIN],
         drop(item) {
-            dispatch({ type: ADD_INGREDIENT, item: item });
+            dispatch(addIngredient(item));
         }
     });
 
-    function deleteIngredient(index) {
+    const deleteIngredient = useCallback((index) => {
         dispatch({ type: DELETE_INGREDIENT, index: index })
-    }
+    }, [dispatch]);
 
-    return(
+    return (
         <section className={styles.section}>
             <div className={styles.burger}>
                 <div ref={dropTargetBunUp}>
@@ -119,9 +139,13 @@ function BurgerConstructor() {
                 </div>
             </div>
             <div className={styles.total} >
+                {orderLoading ? <Loader /> : (
+                    <>
                 <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
-                <div className={styles.total__icon}><CurrencyIcon type="primary" /></div>
+                        <div className={styles.total__icon}><CurrencyIcon type="primary" /></div>
                 <Button htmlType="button" type="primary" disabled={disabled} onClick={showOrder}>Оформить заказ</Button>
+                    </>
+                )}
                 {orderNumber && (
                     <Modal onClose={hideOrder}>
                         <OrderDetails number={orderNumber} />
