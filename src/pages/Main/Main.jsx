@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { loadIngredientsAction } from '../../services/actions/LoadingIngredients';
+import { useSelector } from 'react-redux';
+// import { loadIngredientsAction } from '../../services/actions/LoadingIngredients';
 import { getData } from '../../services/selectors';
 import { MESSAGE_ERROR } from '../../utils/Message';
 
@@ -10,14 +9,12 @@ import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredie
 import Loader from '../../components/Loader/Loader';
 
 function MainPage() {
-
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(loadIngredientsAction());
-    }, [dispatch]);
-
+    // useEffect(() => {
+    //     dispatch(loadIngredientsAction());
+    // }, [dispatch]);
 
     return (
         (dataLoading || dataHasErrors) ? (

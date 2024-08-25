@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/Order';
 import { authGetUserAction } from '../../services/actions/Auth';
-import { getAuth, getIngredients, getOrder } from '../../services/selectors';
+import { getAuth } from '../../services/selectors';
 import { useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/BurgerConstructor';
@@ -141,16 +141,16 @@ function BurgerConstructor() {
             <div className={styles.total} >
                 {orderLoading ? <Loader /> : (
                     <>
-                <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
+                        <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
                         <div className={styles.total__icon}><CurrencyIcon type="primary" /></div>
-                <Button htmlType="button" type="primary" disabled={disabled} onClick={showOrder}>Оформить заказ</Button>
+                        <Button htmlType="button" type="primary" disabled={disabled} onClick={showOrder}>Оформить заказ</Button>
                     </>
                 )}
                 {orderNumber && (
                     <Modal onClose={hideOrder}>
                         <OrderDetails number={orderNumber} />
                     </Modal>
-                 )} 
+                )}
             </div>
         </section>
     );

@@ -9,12 +9,13 @@ import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useNavigate } from 'react-router';
+import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
 
 function BurgerIngredients() {
-    const displayedIngredient = useSelector(state => state.ingredientWindow.displayedIngredient);
-    const data = useSelector(state => state.loadIngredients.data);
-    const tab = useSelector(state => state.tabInfo.tab);
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+    const displayedIngredient = useSelector(getDisplayedIngredient);
+    const { data } = useSelector(getData);
+    const tab = useSelector(getTab);
+    const { bun, ingredients } = useSelector(getIngredients);
 
     const countData = useMemo(() => {
         const res = {};
@@ -32,6 +33,7 @@ function BurgerIngredients() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const groups = useMemo(() => {
         let res = {};
         res[BUN] = data.filter(i => i.type === BUN);
@@ -79,8 +81,8 @@ function BurgerIngredients() {
             <div className={styles.list} onScroll={handleScroll}>
                 {[BUN, SAUCE, MAIN].map((type, typeIndex) => (
                     <div key={typeIndex}>
-                        <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
-                        <ul className={styles.group__ontent}>
+                        <h2 className="text text_type_main-medium mt-8" ref={headers[type]}>{names[type]}</h2>
+                        <ul className={styles.group__content}>
                             {groups[type].map((item) => (
                                 <IngredientsItem key={item._id} item={item} count={countData[item._id]} />
                             ))}
@@ -97,6 +99,5 @@ function BurgerIngredients() {
         </section>
     );
 }
-
 
 export default BurgerIngredients;

@@ -8,7 +8,7 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function IngredientsItem({ item, count}) {
+function IngredientsItem({ item, count }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -34,7 +34,7 @@ function IngredientsItem({ item, count}) {
             {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
         </li>
     );
-    
+
 }
 
 IngredientsItem.propTypes = {
