@@ -21,11 +21,11 @@ function Modal({ caption, children, onClose }) {
     }, [checkEsc]);
 
     return ReactDOM.createPortal((
-        <div className={styles.wrapper}>
+        <div className={styles.container}>
             <div className={styles.dialog}>
                 <div className={styles.header}>
-                    <h3 className={styles.caption}>{caption}</h3>
-                    <CloseIcon type="primary" onClick={onClose}/>
+                    <div className={styles.caption}>{caption}</div>
+                    <div className={styles.close__btn}><CloseIcon type="primary" onClick={onClose} /></div>
                 </div>
                 <div className={styles.content}>
                     {children}
@@ -38,8 +38,8 @@ function Modal({ caption, children, onClose }) {
 
 Modal.propTypes = {
     caption: PropTypes.string,
-    children: PropTypes.arrayOf(PropTypes.element),
+    children: PropTypes.element.isRequired,
     onClose: PropTypes.func.isRequired
 }
 
-export default Modal; 
+export default Modal;

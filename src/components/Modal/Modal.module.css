@@ -1,4 +1,4 @@
-.wrapper {
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +22,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 40px 40px 0 40px;
 }
 
 .caption {
@@ -30,13 +29,13 @@
     min-width: 600px;
 }
 
-.close-btn {
+.close__btn {
     cursor: pointer;
     flex: 0 0 auto;
     align-self: center;
 }
 
-.close-btn:hover {
+.close__btn:hover {
     opacity: 0.7;
 }
 

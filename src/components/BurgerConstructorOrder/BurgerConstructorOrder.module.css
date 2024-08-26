@@ -1,0 +1,12 @@
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.total__icon {
+    transform: scale(1.5);
+    transform-origin: top left;
+    width: 36px;
+    height: 32px;
+}
