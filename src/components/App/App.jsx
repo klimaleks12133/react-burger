@@ -18,19 +18,20 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
-    const stateLocation = location.state && location.state.location;
     const item = location.state && location.state.item;
     useEffect(() => {
         dispatch(loadIngredientsAction());
     }, [dispatch, item]);
 
-    const handleModalClose = () => {
+    const handleCloseModalDetail = () => {
         navigate(-1);
     };
 
+    const stateLocation = location.state && location.state.location;
 
 
     return (
+
         <div className={styles.container}>
             <AppHeader />
             <div className={styles.main}>
@@ -49,20 +50,18 @@ function App() {
                     </Route>
                     <Route path="*" element={<NotFound404 />} />
                 </Routes>
-                {background && (
+                {stateLocation &&
                     <Routes>
-                        <Route
-                            path='/ingredients/:id'
-                            element={
-                                <Modal onClose={handleModalClose}>
-                                    <IngredientDetails />
-                                </Modal>
-                            }
-                        />
+                        <Route path="/ingredients/:id" element={
+                            <Modal onClose={handleCloseModalDetail}>
+                                <IngredientDetails />
+                            </Modal>
+                        } />
                     </Routes>
-                )}
+                }
             </div>
         </div >
+
     );
 }
 
