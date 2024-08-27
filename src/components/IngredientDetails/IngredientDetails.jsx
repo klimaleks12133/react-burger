@@ -2,13 +2,11 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getData } from '../../services/selectors';
-// import { loadIngredientsAction } from '../../services/actions/LoadingIngredients';
 import { MESSAGE_ERROR, MESSAGE_LOADING } from '../../utils/Message';
 import styles from './IngredientDetails.module.css'
 import { dataPropTypes } from '../../utils/DataProps';
 
 function IngredientDetails({ item }) {
-    // const dispatch = useDispatch();
     const params = useParams();
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
     let item1 = useMemo(() => {
@@ -19,10 +17,6 @@ function IngredientDetails({ item }) {
         }
         return null;
     }, [item, params.id, data]);
-
-    // if (!item1 && !dataLoading && !dataHasErrors && params && params.id) {
-    //     dispatch(loadIngredientsAction());
-    // }
 
     return item1 ? (
         <>

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
-// import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
 import { loadIngredientsAction } from '../../services/actions/LoadingIngredients';
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
-import { MainPage, IngredientPage, 
+import {
+    MainPage, IngredientPage,
     Profile, ProfileEdit, ProfileOrders, ProfileLogout,
-    Login, Register, ResetPassword, ForgotPassword, NotFound404 
+    Login, Register, ResetPassword, ForgotPassword, NotFound404
 } from '../../pages';
 import ProtectedRoute from '../Protected-route';
 

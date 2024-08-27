@@ -78,8 +78,8 @@ export function logoutUser() {
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify({
-            token: localStorage.getItem("refreshToken")
+        body: JSON.stringify({ 
+            token: localStorage.getItem("refreshToken") 
         })
     });
 }

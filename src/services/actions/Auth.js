@@ -1,5 +1,5 @@
-import { registerUser, loginUser, logoutUser, refreshToken, forgotPassword, resetPassword, getUser, patchUser } from "../../utils/Api.js";
-import { setCookie, deleteCookie } from "../../utils/Cookie.js";
+import { registerUser, loginUser, logoutUser, refreshToken, forgotPassword, resetPassword, getUser, patchUser } from "../../utils/Api";
+import { setCookie, deleteCookie } from "../../utils/Cookie";
 
 export const AUTH_REGISTER_START = "AUTH_REGISTER_START";
 export const AUTH_REGISTER_SUCCESS = "AUTH_REGISTER_SUCCESS";
