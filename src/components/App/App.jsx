@@ -10,15 +10,23 @@ import {
     Login, Register, ResetPassword, ForgotPassword, NotFound404
 } from '../../pages';
 import ProtectedRoute from '../Protected-route';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../OrderDetails/OrderDetails';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const stateLocation = location.state && location.state.location;
+    const background = location.state && location.state.background;
     const item = location.state && location.state.item;
     useEffect(() => {
         dispatch(loadIngredientsAction());
     }, [dispatch, item]);
+
+
+
+
 
     return (
         <div className={styles.container}>
@@ -39,6 +47,19 @@ function App() {
                     </Route>
                     <Route path="*" element={<NotFound404 />} />
                 </Routes>
+                {background &&
+                    <Routes>
+                        <Route path="/order" element={<ProtectedRoute element={<Modal>
+                            <OrderDetails />
+                        </Modal>
+                        } />}
+                        />
+                        <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
+                            <IngredientDetails />
+                        </Modal>}
+                        />
+                    </Routes>
+                }
             </div>
         </div >
     );
