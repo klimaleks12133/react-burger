@@ -49,17 +49,10 @@ function App() {
                 </Routes>
                 {background &&
                     <Routes>
-                        <Route path="/order" element={<ProtectedRoute element={<Modal>
-                            <OrderDetails />
-                        </Modal>
-                        } />}
-                        />
-                        <Route path="ingridients/:id" element={<Modal title={'Детали ингридиента'}>
+                        <Route path="/ingredients/:id" element={<Modal>
                             <IngredientDetails />
-                        </Modal>}
-                        />
-                    </Routes>
-                }
+                        </Modal>} />
+                    </Routes>}
             </div>
         </div >
     );
