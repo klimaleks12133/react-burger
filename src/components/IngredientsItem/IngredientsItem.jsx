@@ -6,7 +6,7 @@ import { dataPropTypes } from '../../utils/DataProps';
 import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function IngredientsItem({ item, count }) {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function IngredientsItem({ item, count }) {
 
     const showDialogItem = useCallback(() => {
         navigate(`/ingredients/${item._id}`, { replace: true, state: { location: location, item: item } });
-        dispatch({type: SET_DISPLAYED_INGREDIENT, item: item});
+        // dispatch({ type: SET_DISPLAYED_INGREDIENT, item: item });
     }, [dispatch, navigate, location, item]);
 
     const [, dragRef] = useDrag({
@@ -24,15 +24,17 @@ function IngredientsItem({ item, count }) {
     });
 
     return (
-        <li className={styles.card} onClick={showDialogItem} ref={dragRef}>
-            <img className={styles.image} src={item.image} alt="Ингридиент" />
-            <div className={styles.price}>
-                <span className="text text_type_digits-default mr-2">{item.price}</span>
-                <CurrencyIcon type="primary" />
-            </div>
-            <div className={styles.title}>{item.name}</div>
-            {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
-        </li>
+        <Link className={styles.link} to={`/ingredients/${item._id}`} onClick={showDialogItem} state={{ background: location }} ref={dragRef}>
+            <li className={styles.card}>
+                <img className={styles.image}src={item.image} alt="Ингридиент" />
+                <div className={styles.price}>
+                    <span className="text text_type_digits-default mr-2">{item.price}</span>
+                    <CurrencyIcon type="primary" />
+                </div>
+                <div className={`${styles.title} text text_type_main-default`}>{item.name}</div>
+                {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
+            </li>
+        </Link>
     );
 
 }

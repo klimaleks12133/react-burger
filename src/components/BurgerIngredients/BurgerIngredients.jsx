@@ -91,11 +91,11 @@ function BurgerIngredients() {
                 ))}
             </div>
 
-            {displayedIngredient && (
+             {displayedIngredient && (
                 <Modal caption="Детали ингридиента" onClose={hideDialog}>
                     <IngredientDetails item={displayedIngredient} />
                 </Modal>
-            )}
+            )} 
         </section>
     );
 }

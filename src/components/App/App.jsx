@@ -18,6 +18,7 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
+
     const item = location.state && location.state.item;
     useEffect(() => {
         dispatch(loadIngredientsAction());
@@ -50,7 +51,7 @@ function App() {
                     </Route>
                     <Route path="*" element={<NotFound404 />} />
                 </Routes>
-                {stateLocation &&
+                {background &&
                     <Routes>
                         <Route path="/ingredients/:id" element={
                             <Modal onClose={handleCloseModalDetail}>
