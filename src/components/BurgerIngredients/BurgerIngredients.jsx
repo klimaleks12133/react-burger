@@ -8,6 +8,8 @@ import Ingredients from '../Ingredients/Ingredients';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
 import { useNavigate } from 'react-router';
 import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function BurgerIngredients() {
     const displayedIngredient = useSelector(getDisplayedIngredient);
@@ -88,6 +90,11 @@ function BurgerIngredients() {
                     </div>
                 ))}
             </div>
+            {displayedIngredient && (
+                <Modal caption="Детали ингридиента" onClose={hideDialog}>
+                    <IngredientDetails item={displayedIngredient} />
+                </Modal>
+            )}
         </section>
     );
 }

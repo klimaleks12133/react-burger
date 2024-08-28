@@ -24,7 +24,7 @@ function IngredientsItem({ item, count }) {
     });
 
     return (
-        <Link className={styles.link} to={`/ingredients/${item._id}`} onClick={showDialogItem} state={{ background: location }} ref={dragRef}>
+        <Link className={styles.link} to={`/ingredients/${item._id}`} state={{ background: location }} ref={dragRef}>
             <li className={styles.card}>
                 <img className={styles.image}src={item.image} alt="Ингридиент" />
                 <div className={styles.price}>
