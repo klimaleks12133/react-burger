@@ -18,25 +18,18 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
-
-    const item = location.state && location.state.item;
     useEffect(() => {
         dispatch(loadIngredientsAction());
-    }, [dispatch, item]);
+    }, [dispatch]);
 
     const handleCloseModalDetail = () => {
         navigate(-1);
     };
-
-    const stateLocation = location.state && location.state.location;
-
-
     return (
-
         <div className={styles.container}>
             <AppHeader />
             <div className={styles.main}>
-                <Routes location={stateLocation || location}>
+                <Routes location={background || location}>
                     <Route path="/" element={<MainPage />} />
                     <Route path="/ingredients/:id" element={<IngredientPage />} />
                     <Route path="/login" element={<Login />} />
