@@ -6,8 +6,6 @@ import styles from './BurgerIngredients.module.css';
 import { BUN, SAUCE, MAIN, names } from '../../utils/DataName';
 import Ingredients from '../Ingredients/Ingredients';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useNavigate } from 'react-router';
 import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
 
@@ -90,12 +88,6 @@ function BurgerIngredients() {
                     </div>
                 ))}
             </div>
-
-             {displayedIngredient && (
-                <Modal caption="Детали ингридиента" onClose={hideDialog}>
-                    <IngredientDetails item={displayedIngredient} />
-                </Modal>
-            )} 
         </section>
     );
 }
