@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import propTypes from 'prop-types';
-import { dataPropTypes } from '../../utils/dataProps';
+import { dataPropTypes } from '../../utils/DataProps';
 import { SWAP_INGREDIENTS } from '../../services/actions/BurgerConstructor';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructorIngredient.module.css';

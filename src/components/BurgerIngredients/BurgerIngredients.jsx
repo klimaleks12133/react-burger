@@ -1,19 +1,21 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
 import { SET_TAB } from '../../services/actions/TabInfo';
 import styles from './BurgerIngredients.module.css';
-import { BUN, SAUCE, MAIN, names } from '../../utils/dataName';
+import { BUN, SAUCE, MAIN, names } from '../../utils/DataName';
 import Ingredients from '../Ingredients/Ingredients';
 import IngredientsItem from '../IngredientsItem/IngredientsItem';
+import { useNavigate } from 'react-router';
+import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function BurgerIngredients() {
-    const displayedIngredient = useSelector(state => state.ingredientWindow.displayedIngredient);
-    const data = useSelector(state => state.loadIngredients.data);
-    const tab = useSelector(state => state.tabInfo.tab);
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+    const displayedIngredient = useSelector(getDisplayedIngredient);
+    const { data } = useSelector(getData);
+    const tab = useSelector(getTab);
+    const { bun, ingredients } = useSelector(getIngredients);
 
     const countData = useMemo(() => {
         const res = {};
@@ -30,6 +32,8 @@ function BurgerIngredients() {
     }, [bun, ingredients]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const groups = useMemo(() => {
         let res = {};
         res[BUN] = data.filter(i => i.type === BUN);
@@ -63,10 +67,11 @@ function BurgerIngredients() {
         }
     }
 
-    function hideDialog(e) {
+    const hideDialog = useCallback((e) => {
+        navigate('/', { replace: true });
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
         e.stopPropagation();
-    }
+    }, [dispatch, navigate]);
 
     return (
         <section className={styles.section}>
@@ -76,8 +81,8 @@ function BurgerIngredients() {
             <div className={styles.list} onScroll={handleScroll}>
                 {[BUN, SAUCE, MAIN].map((type, typeIndex) => (
                     <div key={typeIndex}>
-                        <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
-                        <ul className={styles.group__ontent}>
+                        <h2 className="text text_type_main-medium mt-8" ref={headers[type]}>{names[type]}</h2>
+                        <ul className={styles.group__content}>
                             {groups[type].map((item) => (
                                 <IngredientsItem key={item._id} item={item} count={countData[item._id]} />
                             ))}
@@ -85,7 +90,6 @@ function BurgerIngredients() {
                     </div>
                 ))}
             </div>
-
             {displayedIngredient && (
                 <Modal caption="Детали ингридиента" onClose={hideDialog}>
                     <IngredientDetails item={displayedIngredient} />
@@ -94,6 +98,5 @@ function BurgerIngredients() {
         </section>
     );
 }
-
 
 export default BurgerIngredients;

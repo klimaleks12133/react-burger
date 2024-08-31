@@ -9,7 +9,7 @@
     scrollbar-width: thin;
 }
 
-.group__ontent {
+.group__content {
     display: flex;
     flex-wrap: wrap;
     list-style: none;

@@ -1,45 +1,62 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { loadIngredientsAction } from '../../services/actions/LoadingIngredients';
-import BurgerIngredients from '../BurgerIngredients//BurgerIngredients'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import AppHeader from '../AppHeader/AppHeader';
 import styles from './App.module.css';
-
-
-const MESSAGE_LOADING = "Подождите, идет загрузка...";
-const MESSAGE_ERROR = "Возникла ошибка при получении данных";
+import AppHeader from '../AppHeader/AppHeader';
+import {
+    MainPage, IngredientPage,
+    Profile, ProfileEdit, ProfileOrders, ProfileLogout,
+    Login, Register, ResetPassword, ForgotPassword, NotFound404
+} from '../../pages';
+import ProtectedRoute from '../Protected-route';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function App() {
-    const { data, dataLoading, dataHasErrors } = useSelector(state => state.loadIngredients);
     const dispatch = useDispatch();
-
+    const location = useLocation();
+    const navigate = useNavigate();
+    const background = location.state && location.state.background;
     useEffect(() => {
         dispatch(loadIngredientsAction());
     }, [dispatch]);
 
+    const handleCloseModalDetail = () => {
+        navigate(-1);
+    };
     return (
-        <>
-            {(dataLoading || dataHasErrors) ? (
-                <main className={styles.wait}>
-                    <p className="text text_type_main-large">
-                        {dataLoading ? MESSAGE_LOADING : dataHasErrors ? MESSAGE_ERROR : undefined}
-                    </p>
-                </main>
-            ) : data && data.length > 0 ? (
-                <>
-                    <AppHeader />
-                    <main className={styles.main}>
-                        <div className={styles.inner}>
-                            <BurgerIngredients />
-                            <BurgerConstructor />
-                        </div>
-                    </main>
-                </>)
-                :
-                undefined
-            }
-        </>
+        <div className={styles.container}>
+            <AppHeader />
+            <div className={styles.main}>
+                <Routes location={background || location}>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/ingredients/:id" element={<IngredientPage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/profile" element={<ProtectedRoute element={<Profile />} />}>
+                        <Route index element={<ProfileEdit />} />
+                        <Route path="orders" element={<ProfileOrders />} />
+                        <Route path="logout" element={<ProfileLogout />} />
+                        <Route path="*" element={<NotFound404 />} />
+                    </Route>
+                    <Route path="*" element={<NotFound404 />} />
+                </Routes>
+                {background &&
+                    <Routes>
+                        <Route path="/ingredients/:id" element={
+                            <Modal onClose={handleCloseModalDetail}>
+                                <IngredientDetails />
+                            </Modal>
+                        } />
+                    </Routes>
+                }
+            </div>
+        </div >
+
     );
 }
+
 export default App;
