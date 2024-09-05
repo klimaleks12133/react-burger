@@ -1,16 +1,16 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/BurgerConstructor';
 import { getIngredients } from '../../services/selectors';
-
+import { TIngredientConstructor } from '../../utils/Types';
 import styles from './BurgerConstructor.module.css';
 import { BUN, SAUCE, MAIN } from '../../utils/DataName';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorOrder from '../BurgerConstructorOrder/BurgerConstructorOrder';
 import BurgerConstructorIngredient from '../BurgerConstructorIngredient/BurgerConstructorIngredient';
 
-function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const { bun, ingredients } = useSelector(getIngredients);
 
@@ -19,7 +19,7 @@ function BurgerConstructor() {
         if (bun) {
             sum += bun.price * 2;
         }
-        sum += ingredients.reduce((sum, item) => sum += item.price, 0);
+        sum += ingredients.reduce((sum: number, item: TIngredientConstructor) => sum += item.price, 0);
         dispatch({ type: SET_SUM, sum });
     }, [bun, ingredients, dispatch]);
 
@@ -44,7 +44,7 @@ function BurgerConstructor() {
         }
     });
 
-    const deleteIngredient = useCallback((index) => {
+    const deleteIngredient = useCallback((index: number) => {
         dispatch({ type: DELETE_INGREDIENT, index: index })
     }, [dispatch]);
 
@@ -60,6 +60,7 @@ function BurgerConstructor() {
                             price={bun.price}
                             thumbnail={bun.image}
                             extraClass={styles.ingredient}
+                            
                         />) :
                         (<div className={styles.empty__element}>
                             <div className={styles.empty__element_text}>Перетащите булку</div>
@@ -67,7 +68,7 @@ function BurgerConstructor() {
                     }
                 </div>
                 <ul className={styles.scroll} ref={dropTargetIngredient}>
-                    {ingredients && ingredients.length > 0 ? ingredients.map((item, index) => (
+                    {ingredients && ingredients.length > 0 ? ingredients.map((item: TIngredientConstructor, index: number) => (
                         <BurgerConstructorIngredient key={item.id} item={item} index={index} onDelete={deleteIngredient} />
                     )) :
                         (<div className={styles.empty__element}>

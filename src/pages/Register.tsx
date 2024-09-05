@@ -7,20 +7,24 @@ import { authGetUserAction, authRegisterAction, AUTH_CLEAR_ERRORS } from '../ser
 import './Page.css';
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+import { TRegisterUser } from '../utils/Api';
 
+type TState = TRegisterUser & {
+    wasSubmit?: boolean;
+}
 function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(authGetUserAction());
+        dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
-    const submitCb = useCallback((state) => {
-        dispatch(authRegisterAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authRegisterAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm < TState > ({
         name: "",
         email: "",
         password: ""
@@ -43,7 +47,7 @@ function Register() {
                 {requestStart || userLoggedIn ? <Loader /> : (
                     <>
                         <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
-                        <Input placeholder="Имя" extraClass="mb-6" name="name" value={state.name} onChange={onChange} />
+                        {/* <Input placeholder="Имя" extraClass="mb-6" name="name" value={state.name} onChange={onChange} /> */}
                         <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
                         <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} />
                         {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.name === "" || state.email === "" || state.password === ""}>Зарегистрироваться</Button>}

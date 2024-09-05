@@ -1,9 +1,14 @@
+import { FC } from 'react';
 import PropTypes from 'prop-types';
 import img from '../../images/done.svg';
 import styles from './OrderDetails.module.css';
 
-function OrderDetails({ number }) {
-    return (
+type TProps = {
+    number: string;
+}
+
+const OrderDetails: FC<TProps> = ({ number }) => {
+        return (
         <>
         <div className={styles.wrapper}>
             <p className={styles.number}>{number}</p>
@@ -14,10 +19,6 @@ function OrderDetails({ number }) {
             </div>
         </>
     );
-}
-
-OrderDetails.propTypes = {
-    number: PropTypes.number.isRequired
 }
 
 export default OrderDetails;

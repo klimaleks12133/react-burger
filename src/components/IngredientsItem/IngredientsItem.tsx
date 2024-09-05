@@ -1,14 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import propTypes from 'prop-types';
-import { dataPropTypes } from '../../utils/DataProps';
 import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-function IngredientsItem({ item, count }) {
+import { TIngredient } from '../../utils/Types';
+
+type TProps = {
+    item: TIngredient;
+    count: number;
+};
+
+const IngredientsItem: FC<TProps> = ({ item, count }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,7 +31,7 @@ function IngredientsItem({ item, count }) {
     return (
         <Link className={styles.link} to={`/ingredients/${item._id}`} state={{ background: location }} ref={dragRef}>
             <li className={styles.card}>
-                <img className={styles.image}src={item.image} alt="Ингридиент" />
+                <img className={styles.image} src={item.image} alt="Ингридиент" />
                 <div className={styles.price}>
                     <span className="text text_type_digits-default mr-2">{item.price}</span>
                     <CurrencyIcon type="primary" />
@@ -38,10 +43,4 @@ function IngredientsItem({ item, count }) {
     );
 
 }
-
-IngredientsItem.propTypes = {
-    item: dataPropTypes.isRequired,
-    count: propTypes.number
-}
-
 export default IngredientsItem;

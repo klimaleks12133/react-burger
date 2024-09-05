@@ -4,20 +4,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authResetPasswordAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
-
+import { TResetPassword } from '../utils/Api';
 import './Page.css';
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+
+type TState = TResetPassword & {
+    wasSubmit?: boolean;
+}
 
 function ResetPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const submitCb = useCallback((state) => {
-        dispatch(authResetPasswordAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authResetPasswordAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm<TState>({
         password: "",
         token: ""
     }, submitCb);
@@ -31,7 +35,7 @@ function ResetPassword() {
             navigate('/forgot-password', { replace: true });
         } else if (state.wasSubmit && requestError) {
             alert(`[Сброс пароля] ${requestError}`);
-            dispatch({type: AUTH_CLEAR_ERRORS});
+            dispatch({ type: AUTH_CLEAR_ERRORS });
         } else if (state.wasSubmit && requestSuccess) {
             navigate('/login', { replace: true });
         }
@@ -42,7 +46,7 @@ function ResetPassword() {
             <form className="page-container-inner" onSubmit={onSubmit}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <PasswordInput placeholder='Введите новый пароль' name="password" value={state.password} onChange={onChange} extraClass="mb-6" />
-                <Input placeholder='Введите код из письма' name="token" value={state.token} onChange={onChange} extraClass="mb-6" />
+                {/* <Input placeholder='Введите код из письма' name="token" value={state.token} onChange={onChange} extraClass="mb-6" /> */}
                 {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.password === "" || state.token === ""}>Сохранить</Button>}
                 <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to="/login">Войти</Link></p>
             </form>

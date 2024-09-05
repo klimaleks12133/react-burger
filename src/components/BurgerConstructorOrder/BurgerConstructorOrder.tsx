@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useCallback } from 'react';
+import { useMemo, useEffect, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/Order';
@@ -10,8 +10,9 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
 import Loader from '../Loader/Loader';
+import { TIngredientConstructor } from '../../utils/Types';
 
-function BurgerConstructorOrder() {
+const BurgerConstructorOrder: FC = () => {
     const { bun, ingredients, sum } = useSelector(getIngredients);
     const { orderNumber, orderLoading, orderHasErrors } = useSelector(getOrder);
 
@@ -33,7 +34,7 @@ function BurgerConstructorOrder() {
 
     useEffect(() => {
         if (!userLoggedIn) {
-            dispatch(authGetUserAction());
+            dispatch(authGetUserAction() as any);
         }
     }, [userLoggedIn, dispatch]);
 
@@ -49,7 +50,7 @@ function BurgerConstructorOrder() {
             if (bun) {
                 orderIngredients.push(bun, bun);
             }
-            dispatch(createOrderAction(orderIngredients));
+            dispatch(createOrderAction(orderIngredients as Array<TIngredientConstructor>) as any);
         }
     }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
 
