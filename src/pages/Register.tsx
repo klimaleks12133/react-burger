@@ -47,7 +47,7 @@ function Register() {
                 {requestStart || userLoggedIn ? <Loader /> : (
                     <>
                         <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
-                        {/* <Input placeholder="Имя" extraClass="mb-6" name="name" value={state.name} onChange={onChange} /> */}
+                        <Input placeholder="Имя" extraClass="mb-6" name="name" value={state.name} onChange={onChange} />
                         <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
                         <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} />
                         {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.name === "" || state.email === "" || state.password === ""}>Зарегистрироваться</Button>}

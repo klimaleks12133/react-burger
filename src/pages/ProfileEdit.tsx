@@ -45,7 +45,7 @@ function ProfileEdit() {
     }, [dispatch, setState, user, navigate, requestError, requestSuccess]);
     return (
         <form className="page-container-inner" onSubmit={onSubmit} onReset={onReset}>
-            {/* <Input extraClass="mb-6" name="name" placeholder="Имя" value={state.name} onChange={onChange} icon="EditIcon" /> */}
+            <Input extraClass="mb-6" name="name" placeholder="Имя" value={state.name} onChange={onChange} icon="EditIcon" />
             <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
             <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} icon="EditIcon" />
             {requestStart ? <Loader /> : valueChange ? (<div>

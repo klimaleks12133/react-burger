@@ -46,7 +46,7 @@ function ResetPassword() {
             <form className="page-container-inner" onSubmit={onSubmit}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <PasswordInput placeholder='Введите новый пароль' name="password" value={state.password} onChange={onChange} extraClass="mb-6" />
-                {/* <Input placeholder='Введите код из письма' name="token" value={state.token} onChange={onChange} extraClass="mb-6" /> */}
+                <Input placeholder='Введите код из письма' name="token" value={state.token} onChange={onChange} extraClass="mb-6" />
                 {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.password === "" || state.token === ""}>Сохранить</Button>}
                 <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to="/login">Войти</Link></p>
             </form>
