@@ -1,19 +1,23 @@
-import { useMemo } from 'react';
+import { useMemo, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getData } from '../../services/selectors';
 import { MESSAGE_ERROR, MESSAGE_LOADING } from '../../utils/Message';
 import styles from './IngredientDetails.module.css'
-import { dataPropTypes } from '../../utils/DataProps';
+import { TIngredient } from '../../utils/Types';
 
-function IngredientDetails({ item }) {
+type TProps = {
+    item?: TIngredient
+}
+
+const IngredientDetails: FC<TProps> = ({ item }) => {
     const params = useParams();
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
     let item1 = useMemo(() => {
         if (item) {
             return item;
         } else if (params.id && data && data.length > 0) {
-            return data.find(i => i._id === params.id);
+            return data.find((i: TIngredient) => i._id === params.id);
         }
         return null;
     }, [item, params.id, data]);
@@ -49,10 +53,5 @@ function IngredientDetails({ item }) {
         </p>
     );
 }
-
-IngredientDetails.propTypes = {
-    item: dataPropTypes
-}
-
 
 export default IngredientDetails;

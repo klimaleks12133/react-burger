@@ -7,20 +7,24 @@ import { authGetUserAction, authRegisterAction, AUTH_CLEAR_ERRORS } from '../ser
 import './Page.css';
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+import { TRegisterUser } from '../utils/Api';
 
+type TState = TRegisterUser & {
+    wasSubmit?: boolean;
+}
 function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(authGetUserAction());
+        dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
-    const submitCb = useCallback((state) => {
-        dispatch(authRegisterAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authRegisterAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm < TState > ({
         name: "",
         email: "",
         password: ""

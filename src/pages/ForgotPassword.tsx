@@ -4,24 +4,28 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authGetUserAction, authForgotPasswordAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
-
+import { TForgotPassword } from '../utils/Api';
 import './Page.css';
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+
+type TState = TForgotPassword & {
+    wasSubmit?: boolean
+}
 
 function ForgotPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(authGetUserAction());
+        dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
-    const submitCb = useCallback((state) => {
-        dispatch(authForgotPasswordAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authForgotPasswordAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm<TState>({
         email: ""
     }, submitCb);
 

@@ -4,10 +4,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authLoginAction, authGetUserAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
-
+import { TLoginUser } from '../utils/Api';
 import './Page.css';
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+
+type TState = TLoginUser & {
+    wasSubmit?: boolean;
+}
 
 function Login() {
     const dispatch = useDispatch();
@@ -15,14 +19,14 @@ function Login() {
     const location = useLocation();
 
     useEffect(() => {
-        dispatch(authGetUserAction());
+        dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
-    const submitCb = useCallback((state) => {
-        dispatch(authLoginAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authLoginAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm < TState > ({
         email: "",
         password: ""
     }, submitCb);

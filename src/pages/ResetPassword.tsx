@@ -4,20 +4,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authResetPasswordAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
-
+import { TResetPassword } from '../utils/Api';
 import './Page.css';
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+
+type TState = TResetPassword & {
+    wasSubmit?: boolean;
+}
 
 function ResetPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const submitCb = useCallback((state) => {
-        dispatch(authResetPasswordAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authResetPasswordAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm<TState>({
         password: "",
         token: ""
     }, submitCb);
@@ -31,7 +35,7 @@ function ResetPassword() {
             navigate('/forgot-password', { replace: true });
         } else if (state.wasSubmit && requestError) {
             alert(`[Сброс пароля] ${requestError}`);
-            dispatch({type: AUTH_CLEAR_ERRORS});
+            dispatch({ type: AUTH_CLEAR_ERRORS });
         } else if (state.wasSubmit && requestSuccess) {
             navigate('/login', { replace: true });
         }

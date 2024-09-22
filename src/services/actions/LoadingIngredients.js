@@ -1,4 +1,4 @@
-import { dataLoad } from '../../utils/Api.js';
+import { dataLoad } from '../../utils/Api';
 
 export const LOAD_DATA_START = "LOAD_DATA_START";
 export const LOAD_DATA_SUCCESS = "LOAD_DATA_SUCCESS";

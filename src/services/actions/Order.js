@@ -1,4 +1,4 @@
-import { orderCreate } from '../../utils/Api.js';
+import { orderCreate } from '../../utils/Api';
 
 export const CREATE_ORDER_START = "CREATE_ORDER_START";
 export const CREATE_ORDER_SUCCESS = "CREATE_ORDER_SUCCESS";

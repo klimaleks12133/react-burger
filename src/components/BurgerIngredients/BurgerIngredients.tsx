@@ -1,4 +1,4 @@
-import { useMemo, useRef, useCallback } from 'react';
+import { useMemo, useRef, useCallback, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
 import { SET_TAB } from '../../services/actions/TabInfo';
@@ -10,15 +10,16 @@ import { useNavigate } from 'react-router';
 import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { TIngredient } from '../../utils/Types';
 
-function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
     const displayedIngredient = useSelector(getDisplayedIngredient);
     const { data } = useSelector(getData);
     const tab = useSelector(getTab);
     const { bun, ingredients } = useSelector(getIngredients);
 
     const countData = useMemo(() => {
-        const res = {};
+        const res: Record<string, number> = {};
         if (bun) {
             res[bun._id] = 2;
         }
@@ -35,28 +36,30 @@ function BurgerIngredients() {
     const navigate = useNavigate();
 
     const groups = useMemo(() => {
-        let res = {};
-        res[BUN] = data.filter(i => i.type === BUN);
-        res[SAUCE] = data.filter(i => i.type === SAUCE);
-        res[MAIN] = data.filter(i => i.type === MAIN);
+        let res: Record<string, Array<TIngredient>> = {};
+        res[BUN] = data.filter((i: TIngredient) => i.type === BUN);
+        res[SAUCE] = data.filter((i: TIngredient) => i.type === SAUCE);
+        res[MAIN] = data.filter((i: TIngredient) => i.type === MAIN);
         return res;
     }, [data]);
 
-    const headers = {};
+    const headers: Record<string, React.RefObject<HTMLHeadingElement>> = {};
     headers[BUN] = useRef(null);
     headers[SAUCE] = useRef(null);
     headers[MAIN] = useRef(null);
 
-    function tabChange(value) {
-        headers[value].current.scrollIntoView({ behavior: "smooth" });
+    function tabChange(value: string) {
+        headers[value].current?.scrollIntoView({ behavior: "smooth" });
     }
 
-    function handleScroll(e) {
-        const pos = e.currentTarget.scrollTop;
+    function handleScroll(e: React.UIEvent<HTMLDivElement>) {
+        const pos = e.currentTarget ? e.currentTarget.scrollTop : 0;
         const distance = [];
         for (let h of Object.values(headers)) {
-            const hPos = h.current.offsetTop;
-            distance.push(Math.abs(pos - hPos));
+            if (h.current) {
+                const hPos = h.current.offsetTop;
+                distance.push(Math.abs(pos - hPos));
+            }
         }
         const min = Math.min(...distance);
         const minIndex = distance.indexOf(min);
@@ -67,10 +70,10 @@ function BurgerIngredients() {
         }
     }
 
-    const hideDialog = useCallback((e) => {
+    const hideDialog = useCallback((e?: Event) => {
         navigate('/', { replace: true });
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
-        e.stopPropagation();
+        e?.stopPropagation();
     }, [dispatch, navigate]);
 
     return (
@@ -83,7 +86,7 @@ function BurgerIngredients() {
                     <div key={typeIndex}>
                         <h2 className="text text_type_main-medium mt-8" ref={headers[type]}>{names[type]}</h2>
                         <ul className={styles.group__content}>
-                            {groups[type].map((item) => (
+                            {groups[type].map((item: TIngredient) => (
                                 <IngredientsItem key={item._id} item={item} count={countData[item._id]} />
                             ))}
                         </ul>

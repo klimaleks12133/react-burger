@@ -15,17 +15,17 @@ function ProfileLogout() {
 
     useEffect(() => {
         if (userLoggedIn) {
-            dispatch(authLogoutAction());
+            dispatch(authLogoutAction() as any);
             setStarted(true);
         }
     }, [userLoggedIn, dispatch]);
 
-    const [started, setStarted] = useState(false);
-
+    const [started, setStarted] = useState<boolean>(false);
+    
     useEffect(() => {
         if (started && requestError) {
             alert(`[Выход] ${requestError}`);
-            dispatch({type: AUTH_CLEAR_ERRORS});
+            dispatch({ type: AUTH_CLEAR_ERRORS });
             setStarted(false);
         } else if (started && requestSuccess) {
             navigate('/login', { replace: true });
