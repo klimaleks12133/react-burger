@@ -7,11 +7,12 @@ import AppHeader from '../AppHeader/AppHeader';
 import {
     MainPage, IngredientPage,
     Profile, ProfileEdit, ProfileOrders, ProfileLogout,
-    Login, Register, ResetPassword, ForgotPassword, NotFound404
+    Login, Register, ResetPassword, ForgotPassword, NotFound404, FeedPage, OrderPage
 } from '../../pages';
 import ProtectedRoute from '../Protected-route';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import OrderInfo from '../OrderInfo/OrderInfo';
 
 function App() {
     const dispatch = useDispatch();
@@ -31,7 +32,9 @@ function App() {
             <div className={styles.main}>
                 <Routes location={background || location}>
                     <Route path="/" element={<MainPage />} />
+                    <Route path="/feed" element={<FeedPage />} />
                     <Route path="/ingredients/:id" element={<IngredientPage />} />
+                    <Route path="/feed/:id" element={<OrderPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
@@ -39,6 +42,7 @@ function App() {
                     <Route path="/profile" element={<ProtectedRoute element={<Profile />} />}>
                         <Route index element={<ProfileEdit />} />
                         <Route path="orders" element={<ProfileOrders />} />
+                        <Route path="orders/:id" element={<OrderPage />} />
                         <Route path="logout" element={<ProfileLogout />} />
                         <Route path="*" element={<NotFound404 />} />
                     </Route>

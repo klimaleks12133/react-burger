@@ -7,11 +7,10 @@ import { authGetUserAction, authRegisterAction, AUTH_CLEAR_ERRORS } from '../ser
 import './Page.css';
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
-import { TRegisterUser } from '../utils/Api';
+import { TRegisterUser, TSubmit } from '../utils/Types';
 
-type TState = TRegisterUser & {
-    wasSubmit?: boolean;
-}
+type TState = TRegisterUser & TSubmit;
+
 function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -43,7 +42,7 @@ function Register() {
 
     return (
         <main className="page-container">
-            <form className="page-container-inner" onSubmit={onSubmit}>
+            <form className="mt-20 page-container-inner" onSubmit={onSubmit}>
                 {requestStart || userLoggedIn ? <Loader /> : (
                     <>
                         <h1 className="text text_type_main-medium mb-6">Регистрация</h1>

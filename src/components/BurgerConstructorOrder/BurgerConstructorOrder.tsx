@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/Order';
 import { authGetUserAction } from '../../services/actions/Auth';
-import { getAuth, getIngredients, getOrder } from '../../services/selectors';
+import { getAuth, getIngredients, createOrder } from '../../services/selectors';
 
 import styles from './BurgerConstructorOrder.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -14,7 +14,7 @@ import { TIngredientConstructor } from '../../utils/Types';
 
 const BurgerConstructorOrder: FC = () => {
     const { bun, ingredients, sum } = useSelector(getIngredients);
-    const { orderNumber, orderLoading, orderHasErrors } = useSelector(getOrder);
+    const { orderNumber, orderLoading, orderHasErrors } = useSelector(createOrder);
 
     useEffect(() => {
         if (orderHasErrors) {

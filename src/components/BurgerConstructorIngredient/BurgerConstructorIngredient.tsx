@@ -1,7 +1,6 @@
 import { useRef, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
-import { dataPropTypes } from '../../utils/DataProps';
 import { SWAP_INGREDIENTS } from '../../services/actions/BurgerConstructor';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructorIngredient.module.css';
@@ -16,11 +15,13 @@ type TProps = {
 const BurgerConstructorIngredient: FC<TProps> = ({ item, index, onDelete }) => {
     const ref = useRef(null);
     const dispatch = useDispatch();
+
     const [, drag] = useDrag({
         type: "sort",
-        item: { index }
+        item: {index}
     });
-    const [, drop] = useDrop<TIngredientConstructor>({
+
+    const [, drop] = useDrop<{index: number}>({
         accept: "sort",
         drop(item) {
             if (index !== item.index) {
@@ -28,6 +29,7 @@ const BurgerConstructorIngredient: FC<TProps> = ({ item, index, onDelete }) => {
             }
         }
     });
+
     drag(drop(ref));
 
     return (

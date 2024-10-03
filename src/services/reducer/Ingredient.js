@@ -1,10 +1,15 @@
-import { SET_DISPLAYED_INGREDIENT } from '../actions/Ingredient';
+import { TIngredient } from '../../utils/Types';
+import { SET_DISPLAYED_INGREDIENT, TIngredientWindowActions } from '../actions/Ingredient';
 
-const initialState = {
+type TIngredientWindowsState = {
+    displayedIngredient: TIngredient | null;
+}
+
+const initialState: TIngredientWindowsState = {
     displayedIngredient: null
 }
 
-export function ingredientWindowReducer(state = initialState, action) {
+export function ingredientWindowReducer(state = initialState, action: TIngredientWindowActions): TIngredientWindowsState {
     switch (action.type) {
         case SET_DISPLAYED_INGREDIENT:
             return { ...state, displayedIngredient: action.item };

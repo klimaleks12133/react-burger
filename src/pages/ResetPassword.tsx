@@ -4,14 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authResetPasswordAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
-import { TResetPassword } from '../utils/Api';
 import './Page.css';
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+import { TResetPassword, TSubmit } from '../utils/Types';
 
-type TState = TResetPassword & {
-    wasSubmit?: boolean;
-}
+type TState = TResetPassword & TSubmit;
 
 function ResetPassword() {
     const dispatch = useDispatch();
@@ -42,7 +40,7 @@ function ResetPassword() {
     }, [dispatch, state.wasSubmit, userLoggedIn, forgotPassword, requestError, requestSuccess, navigate]);
 
     return (
-        <main className="page-container">
+        <main className="mt-20 page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <PasswordInput placeholder='Введите новый пароль' name="password" value={state.password} onChange={onChange} extraClass="mb-6" />

@@ -4,14 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authPatchUserAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
-import { TPatchUser } from '../utils/Api';
-
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
+import { TRegisterUser, TSubmit } from '../utils/Types';
 
-type TState = TPatchUser & {
-    wasSubmit?: boolean;
-}
+type TState = TRegisterUser & TSubmit;
 
 function ProfileEdit() {
     const dispatch = useDispatch();
@@ -44,7 +41,7 @@ function ProfileEdit() {
         }
     }, [dispatch, setState, user, navigate, requestError, requestSuccess]);
     return (
-        <form className="page-container-inner" onSubmit={onSubmit} onReset={onReset}>
+        <form className="mt-20 page-container-inner" onSubmit={onSubmit} onReset={onReset}>
             <Input extraClass="mb-6" name="name" placeholder="Имя" value={state.name} onChange={onChange} icon="EditIcon" />
             <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
             <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} icon="EditIcon" />

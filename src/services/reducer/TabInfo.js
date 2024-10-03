@@ -1,11 +1,14 @@
 import { BUN } from '../../utils/DataName';
-import { SET_TAB } from '../actions/TabInfo';
+import { SET_TAB, TTabInfoActions } from '../actions/TabInfo';
 
-const initialState = {
+type TTabInfoState = {
+    tab: string;
+}
+const initialState: TTabInfoState = {
     tab: BUN
 }
 
-export function tabInfoReducer(state = initialState, action) {
+export function tabInfoReducer(state = initialState, action: TTabInfoActions): TTabInfoState {
     switch (action.type) {
         case SET_TAB:
             return { ...state, tab: action.tab };

@@ -3,7 +3,7 @@ import './Page.css';
 
 function IngredientPage() {
     return (
-        <main className="page-container">
+        <main className="mt-20 page-container">
             <div className="page-container-inner">
                 <IngredientDetails />
             </div>
