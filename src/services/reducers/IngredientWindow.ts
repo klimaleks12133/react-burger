@@ -1,5 +1,5 @@
 import { TIngredient } from '../../utils/Types';
-import { SET_DISPLAYED_INGREDIENT, TIngredientWindowActions } from '../actions/Ingredient';
+import { SET_DISPLAYED_INGREDIENT, TIngredientWindowActions } from '../actions/IngredientWindow';
 
 type TIngredientWindowsState = {
     displayedIngredient: TIngredient | null;

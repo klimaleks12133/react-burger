@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import styles from './IngredientsItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
+import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/IngredientWindow';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { TIngredient } from '../../utils/Types';
@@ -20,7 +20,7 @@ const IngredientsItem: FC<TProps> = ({ item, count }) => {
 
     const showDialogItem = useCallback(() => {
         navigate(`/ingredients/${item._id}`, { replace: true, state: { location: location, item: item } });
-        // dispatch({ type: SET_DISPLAYED_INGREDIENT, item: item });
+        dispatch({ type: SET_DISPLAYED_INGREDIENT, item: item });
     }, [dispatch, navigate, location, item]);
 
     const [, dragRef] = useDrag({

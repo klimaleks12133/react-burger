@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { loadIngredientsAction } from '../../services/actions/LoadingIngredients';
+import { loadIngredientsAction } from '../../services/actions/LoadIngredients';
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import {

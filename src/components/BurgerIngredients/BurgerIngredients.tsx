@@ -1,6 +1,6 @@
 import { useMemo, useRef, useCallback, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/Ingredient';
+import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/IngredientWindow';
 import { SET_TAB } from '../../services/actions/TabInfo';
 import styles from './BurgerIngredients.module.css';
 import { BUN, SAUCE, MAIN, names } from '../../utils/DataName';

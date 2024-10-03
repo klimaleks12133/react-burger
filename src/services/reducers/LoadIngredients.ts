@@ -4,7 +4,7 @@ import {
     LOAD_DATA_SUCCESS, 
     LOAD_DATA_ERROR,
     TLoadIngredientsActions
-} from '../actions/LoadingIngredients';
+} from '../actions/LoadIngredients';
 
 type TLoadIngredientsState = {
     dataLoading: boolean;

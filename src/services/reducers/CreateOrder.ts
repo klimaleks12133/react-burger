@@ -4,7 +4,7 @@ import {
     CREATE_ORDER_ERROR, 
     CLEAR_ORDER,
     TCreateOrderActions
-} from '../actions/Order';
+} from '../actions/CreateOrder';
 
 type TCreateOrderState = {
     orderLoading: boolean;

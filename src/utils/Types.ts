@@ -2,10 +2,10 @@ import { Action, ActionCreator } from "redux";
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TAuthActions } from "../services/actions/Auth";
 import { TBurgerConstructorActions } from "../services/actions/BurgerConstructor";
-import { TCreateOrderActions } from "../services/actions/Order";
+import { TCreateOrderActions } from "../services/actions/CreateOrder";
 import { TGetOrderActions } from "../services/actions/GetOrder";
-import { TIngredientWindowActions } from "../services/actions/Ingredient";
-import { TLoadIngredientsActions } from "../services/actions//LoadingIngredients";
+import { TIngredientWindowActions } from "../services/actions/IngredientWindow";
+import { TLoadIngredientsActions } from "../services/actions/LoadIngredients";
 import { TOrdersAllActions, TwsOrdersAllActions } from "../services/actions/OrdersAll";
 import { TOrdersUserActions, TwsOrdersUserActions } from "../services/actions/OrdersUser";
 import { TTabInfoActions } from "../services/actions/TabInfo";
@@ -25,10 +25,6 @@ export type TIngredient = {
     image_large: string;
     __v: number;
 };
-
-export type TIngredientQty = TIngredient & {
-    qty: number;
-}
 
 export type TIngredientConstructor = TIngredient & {
     id: string;

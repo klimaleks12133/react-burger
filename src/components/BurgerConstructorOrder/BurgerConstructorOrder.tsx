@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { CLEAR_ORDER, createOrderAction } from '../../services/actions/Order';
+import { CLEAR_ORDER, createOrderAction } from '../../services/actions/CreateOrder';
 import { authGetUserAction } from '../../services/actions/Auth';
 import { getAuth, getIngredients, createOrder } from '../../services/selectors';
 

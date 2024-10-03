@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
-import { loadIngredientsReducer } from './LoadingIngredients';
+import { loadIngredientsReducer } from './LoadIngredients';
 import { burgerConstructorReducer } from './BurgerConstructor';
-import { ingredientWindowReducer } from './Ingredient';
-import { createOrderReducer } from './Order';
+import { ingredientWindowReducer } from './IngredientWindow';
+import { createOrderReducer } from './CreateOrder';
 import { tabInfoReducer } from './TabInfo';
 import { authReducer } from './Auth';
 import { ordersAllReducer } from './OrdersAll';
 import { ordersUserReducer } from './OrdersUser';
-import { getOrderReducer } from './GerOrder';
+import { getOrderReducer } from './GetOrder';
 
 export default combineReducers({
     loadIngredients: loadIngredientsReducer,

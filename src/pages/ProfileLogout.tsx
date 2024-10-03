@@ -1,40 +1,27 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from '../hooks/Redux';
 import { useNavigate } from 'react-router';
-import { authLogoutAction, AUTH_CLEAR_ERRORS } from '../services/actions/Auth';
+import { authLogoutAction } from '../services/actions/Auth';
 import { getAuth } from '../services/selectors';
-
-import './Page.css';
 import Loader from '../components/Loader/Loader';
 
 function ProfileLogout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const { requestError, requestSuccess, userLoggedIn } = useSelector(getAuth);
+    const { requestStart, requestError, userLoggedIn } = useSelector(getAuth);
 
     useEffect(() => {
         if (userLoggedIn) {
-            dispatch(authLogoutAction() as any);
-            setStarted(true);
+            dispatch(authLogoutAction());
+        } else {
+            navigate("/login", { replace: true });
         }
-    }, [userLoggedIn, dispatch]);
-
-    const [started, setStarted] = useState<boolean>(false);
-    
-    useEffect(() => {
-        if (started && requestError) {
-            alert(`[Выход] ${requestError}`);
-            dispatch({ type: AUTH_CLEAR_ERRORS });
-            setStarted(false);
-        } else if (started && requestSuccess) {
-            navigate('/login', { replace: true });
-        }
-    }, [dispatch, started, requestError, requestSuccess, navigate]);
+    }, [dispatch, userLoggedIn, navigate]);
 
     return (
         <div className="page-container-inner">
-            {started && <Loader />}
+            {requestStart && <Loader />}
+            {!!requestError && <p className={`error-text text text_type_main-default`}>{requestError}</p>}
         </div>
     );
 }
