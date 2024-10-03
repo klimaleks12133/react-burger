@@ -55,6 +55,11 @@ function App() {
                                 <IngredientDetails />
                             </Modal>
                         } />
+                        <Route path="/profile/orders/:id"  element={
+                            <Modal onClose={handleCloseModalDetail}>
+                                <OrderInfo />
+                            </Modal>
+                        } />
                     </Routes>
                 }
             </div>
