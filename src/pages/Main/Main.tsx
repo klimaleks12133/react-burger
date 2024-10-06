@@ -13,7 +13,7 @@ function MainPage() {
 
     return (
         (dataLoading || dataHasErrors || !data || data.length === 0) ? (
-            <main className={styles["wait-container"]}>
+            <main className={styles["wait__container"]}>
                 {dataLoading ? (<Loader />) : dataHasErrors ? (<p className="text text_type_main-medium">{MESSAGE_ERROR}</p>) : undefined}
             </main>
         ) : (

@@ -1,7 +1,8 @@
 import { useRef, FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/Redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { SWAP_INGREDIENTS } from '../../services/actions/BurgerConstructor';
+
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructorIngredient.module.css';
 import { TIngredientConstructor } from '../../utils/Types';
@@ -32,19 +33,19 @@ const BurgerConstructorIngredient: FC<TProps> = ({ item, index, onDelete }) => {
 
     drag(drop(ref));
 
+
     return (
-        <li className={styles.list__item} key={index} ref={ref}>
+        <li className={`${styles['list__item']} mt-4`} key={index} ref={ref}>
             <DragIcon type="primary" />
             <ConstructorElement
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
-                extraClass={styles.ingredient}
+                extraClass={`${styles.ingredient} ml-2`}
                 handleClose={() => onDelete(index)}
             />
         </li>
     );
 }
-
 
 export default BurgerConstructorIngredient;

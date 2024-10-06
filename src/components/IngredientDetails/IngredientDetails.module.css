@@ -1,26 +1,14 @@
-.wrapper {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.detail {
+    display: flex;
+    justify-content: space-between;
 }
 
-.img {
-  width: 480px;
+.image {
+    width: 480px;
+    height: 240px;
+    display: block;
 }
 
-.grid {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
-  margin-bottom: 60px;
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
+.name {
+    max-width: 480px;
 }

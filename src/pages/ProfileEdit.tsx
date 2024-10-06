@@ -27,12 +27,10 @@ function ProfileEdit() {
     }, submitCb);
 
     useEffect(() => {
-        //при открытии страницы еще раз запрашиваем данные пользователя (если параллельно в другой вкладке вышли или поменяли пользователя)
         dispatch(authGetUserAction());
     }, [dispatch]);
 
     useEffect(() => {
-        //получили данные пользователя, заполняем форму
         if (requestSuccess) {
             setState({ name: user ? user.name : "", email: user ? user.email : "", password: "" });
         }

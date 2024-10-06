@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from '../hooks/Redux';
 import { useNavigate } from 'react-router';
 import { authLogoutAction } from '../services/actions/Auth';
 import { getAuth } from '../services/selectors';
+import { URL_LOGIN } from '../utils/Routes';
+
 import Loader from '../components/Loader/Loader';
 
 function ProfileLogout() {
@@ -14,7 +16,7 @@ function ProfileLogout() {
         if (userLoggedIn) {
             dispatch(authLogoutAction());
         } else {
-            navigate("/login", { replace: true });
+            navigate(URL_LOGIN, { replace: true });
         }
     }, [dispatch, userLoggedIn, navigate]);
 

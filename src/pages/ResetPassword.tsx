@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authResetPasswordAction } from '../services/actions/Auth';
+import { URL_FORGOT_PASSWORD, URL_LOGIN, URL_ROOT } from '../utils/Routes';
+
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
 import { TResetPassword, TSubmit } from '../utils/Types';
@@ -27,11 +29,11 @@ function ResetPassword() {
    
     useEffect(() => {
         if (userLoggedIn) {
-            navigate("/", { replace: true });
+            navigate(URL_ROOT, { replace: true });
         } else if (!forgotPassword) {
-            navigate("/forgot-password", { replace: true });
+            navigate(URL_FORGOT_PASSWORD, { replace: true });
         } else if (state.wasSubmit && requestSuccess) {
-            navigate("/login", { replace: true });
+            navigate(URL_LOGIN, { replace: true });
         }
     }, [dispatch, state.wasSubmit, userLoggedIn, forgotPassword, requestSuccess, navigate]);
 
@@ -43,7 +45,7 @@ function ResetPassword() {
                 <Input placeholder='Введите код из письма' name="token" value={state.token} onChange={onChange} extraClass="mb-6" />
                 {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
                 {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.password === "" || state.token === ""}>Сохранить</Button>}
-                <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to={"/login"}>Войти</Link></p>
+                <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to={URL_LOGIN}>Войти</Link></p>
             </form>
         </main>
     );

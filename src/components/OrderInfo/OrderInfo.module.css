@@ -1,15 +1,19 @@
-.main_container {
+.main__container {
     margin-left: auto;
     margin-right: auto;
     width: 600px;
+
 }
-.number_order {
+
+.number__order {
     text-align: center;
 }
-.status_order {
+
+.status__order {
     color: #00CCCC;
 }
-.fill_order {
+
+.fill__order {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -19,37 +23,44 @@
     scrollbar-color: #8585AD #2F2F37;
     scrollbar-width: thin;
 }
-.fill_order::-webkit-scrollbar {
+
+.fill__order::-webkit-scrollbar {
     background-color: #2F2F37;
     width: 8px;
 }
-.fill_order::-webkit-scrollbar-thumb {
+
+.fill__order::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
-.image_name {
+
+.image__name {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     width: 500px;
 }
-.count_price {
+
+.count__price {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     width: 170px;
 }
+
 .pname {
     width: 350px;
     word-wrap: normal;
 }
-.row_fill {
+
+.row__fill {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.image_fill {
+
+.image__fill {
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -60,7 +71,8 @@
     height: 64px;
     width: 64px;
 }
-.food_order {
+
+.food__order {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

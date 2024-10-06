@@ -4,8 +4,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authLoginAction } from '../services/actions/Auth';
+import { URL_FORGOT_PASSWORD, URL_PROFILE, URL_PROFILE_LOGOUT, URL_REGISTER, URL_ROOT } from '../utils/Routes';
+
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Loader from '../components/Loader/Loader';
+import Loader from '../components/Loader/Loader'
 import { TLoginUser, TSubmit } from '../utils/Types';
 
 type TState = TLoginUser & TSubmit;
@@ -29,29 +31,29 @@ function Login() {
     useEffect(() => {
         if (userLoggedIn) {
             const { from } = location.state || { from: { pathname: "/" } };
-            if (from.pathname === "/profile/logout") {
-                from.pathname = "/";
+            if (from.pathname === `${URL_PROFILE}/${URL_PROFILE_LOGOUT}`) {
+                from.pathname = URL_ROOT;
             }
             navigate(from.pathname, { replace: true });
         }
     }, [dispatch, location.state, userLoggedIn, navigate]);
 
-return (
-    <main className="mt-20 page-container">
-        <form className="page-container-inner" onSubmit={onSubmit}>
-            {requestStart ? <Loader /> : (
-                <>
-                    <h1 className="text text_type_main-medium mb-6">Вход</h1>
-                    <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
-                    <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} />
-                    {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
-                    <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.email === "" || state.password === ""}>Войти</Button>
-                    <p className="text text_type_main-default text_color_inactive mb-4">Вы — новый пользователь? <Link className="page-link" to="/register">Зарегистрироваться</Link></p>
-                    <p className="text text_type_main-default text_color_inactive">Забыли пароль? <Link className="page-link" to="/forgot-password">Восстановить пароль</Link></p>
-                </>)}
-        </form>
-    </main>
-);
+    return (
+        <main className="mt-20 page-container">
+            <form className="page-container-inner" onSubmit={onSubmit}>
+                {requestStart ? <Loader /> : (
+                    <>
+                        <h1 className="text text_type_main-medium mb-6">Вход</h1>
+                        <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
+                        <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} />
+                        {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
+                        <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.email === "" || state.password === ""}>Войти</Button>
+                        <p className="text text_type_main-default text_color_inactive mb-4">Вы — новый пользователь? <Link className="page-link" to={URL_REGISTER}>Зарегистрироваться</Link></p>
+                        <p className="text text_type_main-default text_color_inactive">Забыли пароль? <Link className="page-link" to={URL_FORGOT_PASSWORD}>Восстановить пароль</Link></p>
+                    </>)}
+            </form>
+        </main>
+    );
 }
 
 export default Login;

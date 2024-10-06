@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/UseForm';
 import { getAuth } from '../services/selectors';
 import { authRegisterAction } from '../services/actions/Auth';
+import { URL_LOGIN, URL_ROOT } from '../utils/Routes';
+
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../components/Loader/Loader';
 import { TRegisterUser, TSubmit } from '../utils/Types';
@@ -28,7 +30,7 @@ function Register() {
 
     useEffect(() => {
         if (userLoggedIn) {
-            navigate("/", { replace: true });
+            navigate(URL_ROOT, { replace: true });
         }
     }, [dispatch, userLoggedIn, navigate]);
 
@@ -43,7 +45,7 @@ function Register() {
                         <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} />
                         {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
                         <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.name === "" || state.email === "" || state.password === ""}>Зарегистрироваться</Button>
-                        <p className="text text_type_main-default text_color_inactive mb-4">Уже зарегистрированы? <Link className="page-link" to={"/login"}>Войти</Link></p>
+                        <p className="text text_type_main-default text_color_inactive mb-4">Уже зарегистрированы? <Link className="page-link" to={URL_LOGIN}>Войти</Link></p>
                     </>)}
             </form>
         </main>

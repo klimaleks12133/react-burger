@@ -5,7 +5,7 @@ import { getData, getOrder } from '../../services/selectors';
 import { getOrderAction } from '../../services/actions/GetOrder';
 
 import styles from './OrderInfo.module.css';
-import { TIngredient, TIngredientQty } from '../../utils/Types';
+import { TIngredient } from '../../utils/Types';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 type TProps = {
@@ -28,24 +28,9 @@ const OrderInfo: FC<TProps> = ({ item }) => {
       if (order === null) {
         return null;
       }
-      let group: Record<string, TIngredientQty> = {};
-      for (let item of order!.ingredients) {
-        let ingredient = ingredients.find((elem: TIngredient) => elem._id === item);
-        if (ingredient) {
-          if (!group[item]) {
-            group[item] = { ...ingredient, qty: 0 };
-          }
-          group[item].qty += 1;
-        }
-      }
-      let res: Array<TIngredientQty> = [];
-      for (let item of order!.ingredients) {
-        if (group[item]) {
-          res.push(group[item]);
-          delete group[item];
-        }
-      }
-      return res;
+      return order!.ingredients.map((elemId: string) => {
+        return ingredients.find((elem: TIngredient) => elem._id === elemId)
+      })
     }, [ingredients, order]
   );
 
@@ -72,33 +57,33 @@ const OrderInfo: FC<TProps> = ({ item }) => {
   );
 
   return (
-    <main className={styles.main_container}>
+    <main className={styles.main__ontainer}>
       {order &&
         <>
-          <p className={`text text_type_digits-default mb-10 ${styles.number_order}`}>
+          <p className={`text text_type_digits-default mb-10 ${styles.number__order}`}>
             #{order!.number}
           </p>
           <p className={`text text_type_main-medium mb-3`}>
             {order!.name}
           </p>
-          <p className={`text text_type_main-default mb-10 ${styles.status_order}`}>
+          <p className={`text text_type_main-default mb-10 ${styles.status__order}`}>
             {orderStatus}
           </p>
           <p className="text text_type_main-medium mb-2">
             {'Состав:'}
           </p>
-          <section className={styles.fill_order}>
+          <section className={styles.fill__order}>
             {orderIngredients && orderIngredients.map((item: TIngredient | undefined, i: number) => {
               return (
                 <li key={i} className="mt-4 mr-6">
-                  <div className={styles.row_fill}>
-                    <div className={styles.image_name}>
-                      <div className={styles.image_fill}>
+                  <div className={styles.row__fill}>
+                    <div className={styles.image__name}>
+                      <div className={styles.image__fill}>
                         <img src={item!.image_mobile} alt={item!.name} />
                       </div>
                       <p className={`text text_type_main-default ml-4 ${styles.pname}`}>{item!.name}</p>
                     </div>
-                    <div className={styles.count_price}>
+                    <div className={styles.count__price}>
                       <span className="text text_type_digits-default mr-2">{`1 x ${item!.price}`}</span>
                       <CurrencyIcon type="primary" />
                     </div>
@@ -107,11 +92,12 @@ const OrderInfo: FC<TProps> = ({ item }) => {
               )
             })}
           </section>
-          <section className={`text text_type_main-default mt-10 mb-6 ${styles.food_order}`}>
+          <section className={`text text_type_main-default mt-10 mb-6 ${styles.food__order}`}>
             <p className='text text_type_main-default text_color_inactive'>
               <FormattedDate date={new Date(order!.createdAt)} className='text text_type_main-default text_color_inactive' />
             </p>
-            <div className={styles.count_price}>
+
+            <div className={styles.count__price}>
               <span className={`text text_type_digits-default mr-2`}>{orderAmount}</span>
               <CurrencyIcon type="primary" />
             </div>
@@ -121,4 +107,5 @@ const OrderInfo: FC<TProps> = ({ item }) => {
     </main>
   );
 }
+
 export default OrderInfo;

@@ -1,9 +1,10 @@
 import { useEffect, useCallback, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/Redux';
 import { useDrop } from 'react-dnd';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/BurgerConstructor';
 import { getIngredients } from '../../services/selectors';
-import { TIngredientConstructor } from '../../utils/Types';
+import { TIngredient, TIngredientConstructor } from '../../utils/Types';
+
 import styles from './BurgerConstructor.module.css';
 import { BUN, SAUCE, MAIN } from '../../utils/DataName';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -19,27 +20,27 @@ const BurgerConstructor: FC = () => {
         if (bun) {
             sum += bun.price * 2;
         }
-        sum += ingredients.reduce((sum: number, item: TIngredientConstructor) => sum += item.price, 0);
+        sum += ingredients.reduce((sum: number, item: TIngredientConstructor) => sum + item.price, 0);
         dispatch({ type: SET_SUM, sum });
     }, [bun, ingredients, dispatch]);
 
     const [, dropTargetBunUp] = useDrop({
         accept: BUN,
-        drop(item) {
+        drop(item: TIngredient) {
             dispatch({ type: SET_BUN, item: item });
         }
     });
 
     const [, dropTargetBunDown] = useDrop({
         accept: BUN,
-        drop(item) {
+        drop(item: TIngredient) {
             dispatch({ type: SET_BUN, item: item });
         }
     });
 
     const [, dropTargetIngredient] = useDrop({
         accept: [SAUCE, MAIN],
-        drop(item) {
+        drop(item: TIngredient) {
             dispatch(addIngredient(item));
         }
     });
@@ -50,7 +51,7 @@ const BurgerConstructor: FC = () => {
 
     return (
         <section className={styles.section}>
-            <div className={styles.burger}>
+            <div className={`${styles.burger} mt-25 ml-4`}>
                 <div ref={dropTargetBunUp}>
                     {bun ?
                         (<ConstructorElement
@@ -59,20 +60,19 @@ const BurgerConstructor: FC = () => {
                             text={`${bun.name} (верх)`}
                             price={bun.price}
                             thumbnail={bun.image}
-                            extraClass={styles.ingredient}
-                            
+                            extraClass={`${styles.ingredient} ml-8`}
                         />) :
-                        (<div className={styles.empty__element}>
-                            <div className={styles.empty__element_text}>Перетащите булку</div>
+                        (<div className={`${styles["empty-element"]} constructor-element constructor-element_pos_top ml-8`}>
+                            <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите булку</div>
                         </div>)
                     }
                 </div>
-                <ul className={styles.scroll} ref={dropTargetIngredient}>
+                <ul className={`${styles.scroll} mt-4 mb-4`} ref={dropTargetIngredient}>
                     {ingredients && ingredients.length > 0 ? ingredients.map((item: TIngredientConstructor, index: number) => (
                         <BurgerConstructorIngredient key={item.id} item={item} index={index} onDelete={deleteIngredient} />
                     )) :
-                        (<div className={styles.empty__element}>
-                            <div className={styles.empty__element_text}>Перетащите ингридиенты</div>
+                        (<div className={`${styles["empty-element"]} constructor-element ml-8`}>
+                            <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите ингридиенты</div>
                         </div>)}
                 </ul>
                 <div ref={dropTargetBunDown}>
@@ -85,8 +85,8 @@ const BurgerConstructor: FC = () => {
                             thumbnail={bun.image}
                             extraClass={`${styles.ingredient} ml-8`}
                         />) :
-                        (<div className={styles.empty__element}>
-                            <div className={styles.empty__element_text}>Перетащите булку</div>
+                        (<div className={`${styles["empty-element"]} constructor-element constructor-element_pos_bottom ml-8`}>
+                            <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите булку</div>
                         </div>)
                     }
                 </div>

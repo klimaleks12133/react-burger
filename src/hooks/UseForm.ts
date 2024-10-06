@@ -1,9 +1,9 @@
 import { useState, useCallback, FormEventHandler, FormEvent, ChangeEvent } from 'react';
 
-export function useForm<T extends { wasSubmit?: boolean }>(initialState: T, submitCb: (e: T) => void) {
+export function useForm<T extends {wasSubmit?: boolean}>(initialState: T, submitCb: (e: T) => void) {
     const [state, setState] = useState(initialState);
 
-    const onSubmit = useCallback < FormEventHandler > ((e: FormEvent) => {
+    const onSubmit = useCallback<FormEventHandler>((e: FormEvent) => {
         e.preventDefault();
         if (submitCb) {
             const statePure = { ...state };

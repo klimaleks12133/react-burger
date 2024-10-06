@@ -2,14 +2,16 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 import { FC, useMemo } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "../../hooks/Redux";
 import { getData } from "../../services/selectors";
 import { TIngredient, TOrder } from "../../utils/Types";
-import styles from './OrderListItem.module.css';
+import styles from './OrdersListItem.module.css';
+
 type TProp = {
     order: TOrder,
     isPerson?: boolean
 };
+
 const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
     const location = useLocation(); 
     const countItemsMax = 6;
@@ -46,43 +48,43 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
       , [orderIngredients]
     );
   
+
     return (
         <Link className={`${styles.order}`}
         to={`${location.pathname}/${order.number}`}
         state={{ location: location }}
       > 
         <div className='m-6'>
-          <div className={styles.order_header}>
+          <div className={styles.order__header}>
             <p className='text text_type_digits-default'>#{order.number}</p>
             <FormattedDate date={new Date(order.createdAt)} className='text text_type_main-default text_color_inactive' />
           </div>
         </div>
-        <p className={`${styles.title_order} text text_type_main-medium`}>
+        <p className={`${styles.title__order} text text_type_main-medium`}>
           {order.name}
         </p>
         {isPerson && orderStatus &&
-          <p className={`${styles.status_order} ${colorStatus} text text_type_main-default`}>
+          <p className={`${styles.status__order} ${colorStatus} text text_type_main-default`}>
             {orderStatus}
           </p>
         }
         <div className={styles.filling}>
-          <div className={styles.images_selection}>
+          <div className={styles.images__selection}>
             {firstSixItems && firstSixItems.map((item: TIngredient | undefined, i: number) => {
-              //let zIndex = countItemsMax - i;
               let right = -2 * 10;
-              let counthide = order.ingredients.length - countItemsMax + 1;
+              let countHide = order.ingredients.length - countItemsMax;
               return (
                 <li
                   key={i}
-                  style={{ /*zIndex: zIndex,*/ marginRight: right }}
-                  className={styles.image_fill}>
+                  style={{ marginRight: right }}
+                  className={styles.image__fill}>
                   <img
-                      style={{ opacity: countItemsMax === (i + 1) ? '0.4' : '1' }}
+                      style={{ opacity: countItemsMax === (i + 1) && countHide > 0 ? '0.4' : '1' }}
                       src={item!.image_mobile}
                       alt={item!.name}
-                      className={styles.image_position} />
-                  {counthide > 0 && i === (countItemsMax - 1) &&
-                    <span className={`${styles.count_hidden} text text_type_main-default`}>+{counthide}</span>
+                      className={styles.image__position} />
+                  {countHide > 0 && i === (countItemsMax - 1) &&
+                    <span className={`${styles.count__hidden} text text_type_main-default`}>+{countHide}</span>
                   }
                 </li>
               )
@@ -96,4 +98,5 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
       </Link>
     );
 }
+
 export default OrdersListItem;

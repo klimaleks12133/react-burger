@@ -199,6 +199,7 @@ export const authLogoutAction = () => (dispatch: AppDispatch) => {
             dispatch({ type: AUTH_LOGOUT_ERROR, message: err.message });
         })
         .finally(() => {
+            //и в случае успеха, и в случае ошибки (пользователь вышел в другой вкладке)
             localStorage.removeItem("refreshToken");
             deleteCookie("accessToken");
         });

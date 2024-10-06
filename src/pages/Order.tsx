@@ -7,4 +7,5 @@ function OrderPage() {
         </main>
     );
 }
+
 export default OrderPage;

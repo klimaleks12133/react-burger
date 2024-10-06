@@ -1,5 +1,3 @@
-import './Page.css'
-
 function NotFound404() {
     return (
         <div className="mt-20 page-container">

@@ -1,10 +1,8 @@
 import { useCallback, useEffect, FC } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
-
 
 type TProps = {
     caption?: string;
@@ -30,9 +28,9 @@ const Modal: FC<TProps> = ({ caption, children, onClose }) => {
     return ReactDOM.createPortal((
         <div className={styles.container}>
             <div className={styles.dialog}>
-                <div className={styles.header}>
-                    <div className={styles.caption}>{caption}</div>
-                    <div className={styles.close__btn}><CloseIcon type="primary" onClick={onClose} /></div>
+                <div className={`${styles.header} ml-10 mt-10 mr-10`}>
+                    <div className={`${styles.caption} text text_type_main-large`}>{caption}</div>
+                    <div className={styles['close__btn']}><CloseIcon type="primary" onClick={onClose} /></div>
                 </div>
                 <div className={styles.content}>
                     {children}
@@ -42,4 +40,5 @@ const Modal: FC<TProps> = ({ caption, children, onClose }) => {
         </div>
     ), document.getElementById('modal') as Element);
 }
+
 export default Modal;

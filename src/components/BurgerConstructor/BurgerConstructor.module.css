@@ -1,6 +1,5 @@
 .section {
     flex: 0 0 600px;
-    margin-top: 100px;
 }
 
 .scroll {
@@ -12,19 +11,30 @@
     list-style: none;
 }
 
-.empty__element {
+.scroll::-webkit-scrollbar {
+    background-color: #2F2F37;
+    width: 8px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+.scroll > :first-child {
+    margin-top: 0;
+}
+
+.empty-element {
     display: flex;
     align-items: center;
     text-align: center;
-    height: 50px;
     background: var(--background);
 }
 
-.empty__element_text {
+.empty-element-text {
     flex: 1;
 }
 
 .ingredient {
     background: var(--background);
 }
-

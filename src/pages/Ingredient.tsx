@@ -1,5 +1,4 @@
 import IngredientDetails from '../components/IngredientDetails/IngredientDetails';
-import './Page.css';
 
 function IngredientPage() {
     return (

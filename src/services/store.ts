@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducers';
-import { socketMiddleware } from './middleware/socket-middleware';
+import { socketMiddleware } from './middleware/SocketMiddleware';
 import { wsOrdersAllActions } from './actions/OrdersAll';
 import { wsOrdersUserActions } from './actions/OrdersUser';
 
