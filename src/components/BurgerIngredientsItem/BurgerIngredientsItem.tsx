@@ -31,7 +31,7 @@ const BurgerIngredientsItem: FC<TProps> = ({ item, count }) => {
     });
 
     return (
-        <Link className={styles.link} to={`${URL_INGREDIENTS}/${item._id}`} onClick={showDialogItem} ref={dragRef}>
+        <Link className={styles.link} to={`${URL_INGREDIENTS}/${item._id}`} state={{ background: location }} onClick={showDialogItem} ref={dragRef}>
             <li className={`${styles.card} mt-6 mb-2 ml-3 mr-2`}>
                 <img className={`${styles.image} ml-4 mr-4 mb-1`} src={item.image} alt="Ингридиент" />
                 <div className={`${styles.price} mb-1`}>

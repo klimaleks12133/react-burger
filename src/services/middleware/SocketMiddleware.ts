@@ -3,16 +3,16 @@ import { refreshToken } from '../../utils/Api';
 import { getCookie } from '../../utils/Cookie';
 import { getEventMessage } from '../../utils/Message';
 
-import type { AppDispatch, RootState, wsActionsTypes } from '../../utils/Types';
+import type { AppDispatch, RootState, WsActionsTypes } from '../../utils/Types';
 
-export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
+export const socketMiddleware = (wsActions: WsActionsTypes): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
     let timerWsReconnect = 0;
     let isWsConnected = false;
     let url = '';
 
-    return next => (action: AnyAction) => {
+    return next => (action: any) => {
       const { dispatch } = store;
 
       if (action.type === wsActions.onStart) {
@@ -20,8 +20,15 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
         if (action.addToken) {
           url += `?token=${getCookie('accessToken')}`;
         }
-        socket = new WebSocket(url);
-        isWsConnected = true;
+        let cnt = 0;
+        while (cnt < 10) {
+          try {
+            socket = new WebSocket(url);
+            break;
+          } catch {
+            cnt++;
+          }
+        }        isWsConnected = true;
         window.clearTimeout(timerWsReconnect);
         dispatch({ type: wsActions.onSuccess });
       }

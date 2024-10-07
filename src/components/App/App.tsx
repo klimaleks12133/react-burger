@@ -30,7 +30,7 @@ function App() {
         dispatch(authCheckUserAction());
     }, [dispatch]);
 
-    const stateLocation = location.state && location.state.location;
+    const background = location.state && location.state.location;
     const item = location.state && location.state.item;
     useEffect(() => {
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: item });
@@ -38,13 +38,13 @@ function App() {
 
     const handleCloseModalDetail = () => {
         navigate(-1);
-      }
+    }
 
     return (
         <div className={styles.container}>
             <AppHeader />
             <div className={styles.main}>
-                <Routes location={stateLocation || location}>
+                <Routes location={background || location}>
                     <Route path={URL_ROOT} element={<MainPage />} />
                     <Route path={URL_FEED} element={<FeedPage />} />
                     <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
@@ -62,14 +62,14 @@ function App() {
                     </Route>
                     <Route path={URL_ANY} element={<NotFound404 />} />
                 </Routes>
-                {stateLocation &&
+                {background &&
                     <Routes>
-                        <Route path="/feed/:id" element={
+                        <Route path={`${URL_FEED}/:id`} element={
                             <Modal onClose={handleCloseModalDetail}>
                                 <OrderInfo />
                             </Modal>
                         } />
-                        <Route path="/profile/orders/:id" element={
+                        <Route path={`${URL_PROFILE}/${URL_PROFILE_ORDERS}/:id`} element={
                             <Modal onClose={handleCloseModalDetail}>
                                 <OrderInfo />
                             </Modal>
