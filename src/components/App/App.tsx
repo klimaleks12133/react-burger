@@ -54,7 +54,7 @@ function App() {
                     <Route path={URL_RESET_PASSWORD} element={<ProtectedRoute anonymous element={<ResetPassword />} />} />
                     <Route path={URL_FORGOT_PASSWORD} element={<ProtectedRoute anonymous element={<ForgotPassword />} />} />
                     <Route path={URL_PROFILE} element={<ProtectedRoute element={<Profile />} />}>
-                        <Route index element={<ProfileEdit />} />
+                    <Route index element={<ProfileEdit />} />
                         <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />
                         <Route path={`${URL_PROFILE_ORDERS}/:id`} element={<OrderPage />} />
                         <Route path={URL_PROFILE_LOGOUT} element={<ProfileLogout />} />
@@ -69,11 +69,11 @@ function App() {
                                 <OrderInfo />
                             </Modal>
                         } />
-                        <Route path={`${URL_PROFILE}/${URL_PROFILE_ORDERS}/:id`} element={
+                        <Route path={`${URL_PROFILE}/${URL_PROFILE_ORDERS}/:id`} element={<ProtectedRoute element={
                             <Modal onClose={handleCloseModalDetail}>
                                 <OrderInfo />
                             </Modal>
-                        } />
+                        } /> }/> 
                     </Routes>
                 }
             </div>
