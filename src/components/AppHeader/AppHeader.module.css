@@ -2,29 +2,29 @@
     background: var(--background);
 }
 
-.container {
+.header__container {
     display: flex;
     width: var(--width-outer);
     margin: 0 auto;
 }
 
-.center {
+.header__center {
     flex: 0 0 content;
 }
 
-.left {
+.header__left {
     flex: 1 0 100px;
     display: flex;
     justify-content: flex-start;
 }
 
-.right {
+.icon__right {
     flex: 1 0 100px;
     display: flex;
     justify-content: flex-end;
 }
 
-.list {
+.header__list {
     margin: 0;
     padding: 0;
     display: flex;

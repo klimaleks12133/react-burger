@@ -1,10 +1,9 @@
 import { FC } from 'react';
-import PropTypes from 'prop-types';
-import styles from './ModalOverlay.module.css';
+import styles from './/ModalOverlay.module.css';
 
 type TProps = {
     onClose: () => void;
-}
+};
 
 const ModalOverlay: FC<TProps> = ({ onClose }) => {
     return (

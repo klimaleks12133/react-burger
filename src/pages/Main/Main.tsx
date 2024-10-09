@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/Redux';
 import { getData } from '../../services/selectors';
 import { MESSAGE_ERROR } from '../../utils/Message';
 
@@ -8,22 +8,21 @@ import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredie
 import Loader from '../../components/Loader/Loader';
 
 function MainPage() {
+
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
 
     return (
         (dataLoading || dataHasErrors || !data || data.length === 0) ? (
-            <main className={styles.wait__container}>
+            <main className={styles["wait__container"]}>
                 {dataLoading ? (<Loader />) : dataHasErrors ? (<p className="text text_type_main-medium">{MESSAGE_ERROR}</p>) : undefined}
             </main>
         ) : (
-            <>
-                <main className={styles.main}>
-                    <div className={styles.inner}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </div>
-                </main>
-            </>
+            <main className={styles.main}>
+                <div className={styles.inner}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </div>
+            </main>
         )
     );
 }
