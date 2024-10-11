@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from '../../hooks/Redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/CreateOrder';
 import { getAuth, getIngredients, createOrder } from '../../services/selectors';
 import { URL_LOGIN } from '../../utils/Routes';
-
+import { CLEAR_CONSTRUCTOR } from '../../services/actions/BurgerConstructor';
 import styles from './BurgerConstructorOrder.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from '../OrderDetails/OrderDetails';
@@ -45,6 +45,7 @@ const BurgerConstructorOrder: FC = () => {
 
     function hideOrder() {
         dispatch({ type: CLEAR_ORDER });
+        dispatch({ type: CLEAR_CONSTRUCTOR });
     }
 
     return (

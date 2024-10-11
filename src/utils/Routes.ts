@@ -1,5 +1,6 @@
 export const URL_ROOT = "/";
 export const URL_INGREDIENTS = "/ingredients";
+export const URL_GITHUB = "/react-burger";
 export const URL_FEED = "/feed";
 export const URL_LOGIN ="/login";
 export const URL_REGISTER = "/register";

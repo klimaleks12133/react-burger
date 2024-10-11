@@ -4,9 +4,8 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/IngredientWindow';
 import {
     URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
-    URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY, URL_FEED
+    URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY, URL_FEED, URL_GITHUB
 } from '../../utils/Routes';
-
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import {
@@ -46,6 +45,7 @@ function App() {
             <div className={styles.main}>
                 <Routes location={background || location}>
                     <Route path={URL_ROOT} element={<MainPage />} />
+                    <Route path={URL_GITHUB} element={<MainPage />} />
                     <Route path={URL_FEED} element={<FeedPage />} />
                     <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
                     <Route path={`${URL_FEED}/:id`} element={<OrderPage />} />

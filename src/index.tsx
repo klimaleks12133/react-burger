@@ -19,8 +19,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
-        <BrowserRouter>
+    <DndProvider backend={HTML5Backend}>
+    <BrowserRouter>
           <App />
         </BrowserRouter>
       </DndProvider>
