@@ -1,7 +1,15 @@
+/// <reference types="cypress" />
 import login from '../fixtures/login.json';
+import { defineConfig } from 'cypress'
+
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:3000/',
+  },
+})
 describe('constuctor page', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000');
+        cy.visit('http://localhost:3000/react-burger');
     });
     it('show ingredient detail', () => {
         cy.contains('Конструктор');
