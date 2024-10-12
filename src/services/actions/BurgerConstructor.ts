@@ -1,3 +1,4 @@
+
 import { v4 as uuid } from 'uuid';
 import { TIngredient, TIngredientConstructor } from '../../utils/Types';
 
@@ -6,6 +7,7 @@ export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const SWAP_INGREDIENTS = "SWAP_INGREDIENTS";
 export const SET_SUM = "SET_SUM";
+export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 
 export interface SetBunAction {
     type: typeof SET_BUN;
@@ -33,8 +35,11 @@ export interface SetSumAction {
     sum: number;
 }
 
+export interface ClearConstructor {
+    type: typeof CLEAR_CONSTRUCTOR;
+}
 export type TBurgerConstructorActions = SetBunAction | AddIngredientAction | DeleteIngredientAction | 
-    SwapIngredientAction | SetSumAction;
+    SwapIngredientAction | SetSumAction | ClearConstructor;
 
 export function addIngredient(item: TIngredient): AddIngredientAction {
     return {
@@ -42,4 +47,3 @@ export function addIngredient(item: TIngredient): AddIngredientAction {
         item: {...item, id: uuid()}
     }
 }
-
